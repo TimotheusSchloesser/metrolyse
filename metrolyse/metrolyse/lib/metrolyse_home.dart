@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:metrolyse/functions/audio_play.dart';
 import 'package:metrolyse/ui_components/round_button.dart';
 import 'package:metrolyse/ui_components/constants.dart';
 import 'functions/slider_bpm.dart';
 import 'metrolyse_stats.dart';
+
+AudioPlay audioPlay = AudioPlay();
+// const src = 'audio/click.wav';
 
 class MetrolyseHome extends StatefulWidget {
   const MetrolyseHome({super.key});
@@ -31,7 +34,7 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
             padding: EdgeInsets.all(15.0),
             child: SliderBpm(),
           ),
-          ButtonStats()
+          ButtonStats(),
         ]));
   }
 }
@@ -67,9 +70,7 @@ class ButtonStop extends StatelessWidget {
         Icons.stop_circle_outlined,
         size: 60,
       ),
-      isTapped: () {
-        SystemSound.play(SystemSoundType.click);
-      },
+      isTapped: () => audioPlay.click(),
     );
   }
 }
@@ -97,3 +98,10 @@ class ButtonStats extends StatelessWidget {
     );
   }
 }
+
+// class Player {
+//   static play(String src) async {
+//     final player = AudioPlayer();
+//     await player.play(AssetSource('audio/click.wav'));
+//   }
+// }
