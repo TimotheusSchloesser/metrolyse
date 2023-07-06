@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../ui_components/constants.dart';
+import 'metronom_funktion.dart';
+
+double bpmInit = 150.0;
 
 class SliderBpm extends StatefulWidget {
   const SliderBpm({super.key});
@@ -9,21 +12,9 @@ class SliderBpm extends StatefulWidget {
 }
 
 class _SliderBpmState extends State<SliderBpm> {
-  double bpmInit = 150.0;
+  MetronomFunctions mF = MetronomFunctions();
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color: silderBackgroundColor,
-            borderRadius: BorderRadius.circular(50)),
-        child: Column(children: [
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [bpmValue(), const SizedBox(width: 10), bpmText()]),
-          bpmSlider()
-        ]));
-  }
+  String bpmGetter = bpmInit.toInt().toString();
 
 // The BPM-Slider
   Slider bpmSlider() => Slider(
@@ -51,5 +42,26 @@ class _SliderBpmState extends State<SliderBpm> {
       bpmInit.toInt().toString(),
       style: mainRegularTextStyle,
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+            color: silderBackgroundColor,
+            borderRadius: BorderRadius.circular(50)),
+        child: Column(children: [
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [bpmValue(), const SizedBox(width: 10), bpmText()]),
+          bpmSlider()
+        ]));
+  }
+}
+
+class GetSliderBpm with ChangeNotifier {
+  sliderBpmVal() {
+    var bpm = bpmInit;
+    return bpm;
   }
 }

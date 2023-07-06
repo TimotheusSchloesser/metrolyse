@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:metrolyse/functions/audio_play.dart';
+import 'package:metrolyse/functions/metronom_funktion.dart';
 import 'package:metrolyse/ui_components/round_button.dart';
 import 'package:metrolyse/ui_components/constants.dart';
 import 'functions/slider_bpm.dart';
 import 'metrolyse_stats.dart';
 
 AudioPlay audioPlay = AudioPlay();
-// const src = 'audio/click.wav';
+MetronomFunctions metronomFunctions = MetronomFunctions();
 
 class MetrolyseHome extends StatefulWidget {
   const MetrolyseHome({super.key});
@@ -21,7 +22,7 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Metronome',
+            'Metrolyse',
             style: mainRegularTextStyle,
           ),
         ),
@@ -52,7 +53,9 @@ class ButtonPlay extends StatelessWidget {
         Icons.play_circle_filled_outlined,
         size: 60,
       ),
-      isTapped: () {},
+      isTapped: () {
+        metronomFunctions.playClick();
+      },
     );
   }
 }
