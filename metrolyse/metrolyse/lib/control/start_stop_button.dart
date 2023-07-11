@@ -30,15 +30,19 @@ class StartStopBtnState extends State<StartStopBtn> {
             isPlaying = !isPlaying;
             if (isPlaying) {
               metronomFunctions.playClick();
-            } else {
               clickplays();
-              stopClick();
+            } else {
+              metronomFunctions.stopClick();
+              clickplays();
+              // metronomFunctions.stopClick();
+              // metronomFunctions.stopClick();
             }
           });
         });
   }
 
   clickplays() {
+    print(isPlaying);
     return isPlaying;
   }
 }

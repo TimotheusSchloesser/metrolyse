@@ -7,7 +7,13 @@ import '../control/slider_bpm.dart';
 SliderBpm sliderBpm = const SliderBpm();
 GetSliderBpm getSliderBpm = GetSliderBpm();
 
-const src = 'audio/click.wav';
+final player = AudioPlayer();
+// var src = null;
+int time = 60000 ~/ getSliderBpm.sliderBpmVal();
+final timerPer = Timer.periodic(Duration(milliseconds: time), (timer) async {
+  const src = 'audio/click.wav';
+  await player.play(AssetSource(src));
+});
 
 class MetronomFunctions {
   var bpm = getSliderBpm.sliderBpmVal();
@@ -15,27 +21,32 @@ class MetronomFunctions {
 
   playClick() {
     // if(!isRunning){
-    clickTimer();
+    clickTimer(timerPer);
     // }
     // if (isRunning) {
     // timer.cancel();
   }
+
+  stopClick() {
+    clickUntimer(timerPer, player);
+  }
   // checkIt.getTwelth()
 }
 
-clickTimer() {
-  int time = 60000 ~/ getSliderBpm.sliderBpmVal();
-  Timer.periodic(Duration(milliseconds: time), (timer) async {
-    final player = AudioPlayer();
-    await player.play(AssetSource(src));
-  });
+clickTimer(timer) {
+  timer;
 }
-// }
 
-stopClick() {
-  // Timer.cancel();
-  // checkIt.getTwelth()
+clickUntimer(timerPer, player) {
+  if (timerPer.isActive) {
+    timerPer.cancel();
+    player.stop();
+  } else {
+    clickTimer(timerPer);
+  }
 }
+
+
   //  void _startTimer() {
   //   // Disable the button after it has been pressed
   //   setState(() {
