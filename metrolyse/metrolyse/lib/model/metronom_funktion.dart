@@ -24,7 +24,7 @@ class MetronomFunctions {
 }
 
 clickTimer() {
-  int time = 60000 ~/ getSliderBpm.sliderBpmVal().notifyListeners();
+  int time = 60000 ~/ getSliderBpm.sliderBpmVal();
   Timer.periodic(Duration(milliseconds: time), (timer) async {
     final player = AudioPlayer();
     await player.play(AssetSource(src));
