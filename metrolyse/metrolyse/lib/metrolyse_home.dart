@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:metrolyse/functions/audio_play.dart';
-import 'package:metrolyse/functions/metronom_funktion.dart';
-import 'package:metrolyse/ui_components/round_button.dart';
 import 'package:metrolyse/ui_components/constants.dart';
-import 'functions/slider_bpm.dart';
+import 'control/round_button.dart';
+import 'control/slider_bpm.dart';
 import 'metrolyse_stats.dart';
-
-AudioPlay audioPlay = AudioPlay();
-MetronomFunctions metronomFunctions = MetronomFunctions();
 
 class MetrolyseHome extends StatefulWidget {
   const MetrolyseHome({super.key});
@@ -53,9 +48,7 @@ class ButtonPlay extends StatelessWidget {
         Icons.play_circle_filled_outlined,
         size: 60,
       ),
-      isTapped: () {
-        metronomFunctions.playClick();
-      },
+      isTapped: () {},
     );
   }
 }
@@ -68,13 +61,12 @@ class ButtonStop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundButton(
-      color: innerButtonColor,
-      content: const Icon(
-        Icons.stop_circle_outlined,
-        size: 60,
-      ),
-      isTapped: () => audioPlay.click(),
-    );
+        color: innerButtonColor,
+        content: const Icon(
+          Icons.stop_circle_outlined,
+          size: 60,
+        ),
+        isTapped: () {});
   }
 }
 
