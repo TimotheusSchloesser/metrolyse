@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:metrolyse/functions/audio_play.dart';
-import 'package:metrolyse/functions/slider_bpm.dart';
 
-AudioPlay audioPlay = AudioPlay();
+import '../control/slider_bpm.dart';
+
 SliderBpm sliderBpm = const SliderBpm();
 GetSliderBpm getSliderBpm = GetSliderBpm();
 
