@@ -1,48 +1,44 @@
-import 'package:flutter/material.dart';
-import '../model/metronom_funktion.dart';
+// import 'package:flutter/material.dart';
+// import '../model/metronome_funktion.dart';
 
-bool isPlaying = false;
-MetronomFunctions metronomFunctions = MetronomFunctions();
+// bool isPlaying = false;
+// MetronomeFunction metronomeFunction = MetronomeFunction();
 
-class StartStopBtn extends StatefulWidget {
-  const StartStopBtn({super.key});
+// class StartStopBtn extends StatefulWidget {
+//   const StartStopBtn({super.key});
 
-  @override
-  State<StartStopBtn> createState() => StartStopBtnState();
-}
+//   @override
+//   State<StartStopBtn> createState() => StartStopBtnState();
+// }
 
-class StartStopBtnState extends State<StartStopBtn> {
-  @override
-  Widget build(BuildContext context) {
-    return playStopFunc();
-  }
+// class StartStopBtnState extends State<StartStopBtn> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return playStopFunc();
+//   }
 
-  IconButton playStopFunc() {
-    return IconButton(
-        icon: isPlaying
-            ? const Icon(Icons.play_circle_outline_outlined)
-            : const Icon(
-                Icons.stop_circle_outlined,
-              ),
-        onPressed: () {
-          setState(() {
-            // Here we changing the icon.
-            isPlaying = !isPlaying;
-            if (isPlaying) {
-              metronomFunctions.playClick();
-              clickplays();
-            } else {
-              metronomFunctions.stopClick();
-              clickplays();
-              // metronomFunctions.stopClick();
-              // metronomFunctions.stopClick();
-            }
-          });
-        });
-  }
+//   IconButton playStopFunc() {
+//     return IconButton(
+//         icon: isPlaying
+//             ? const Icon(Icons.play_circle_outline_outlined)
+//             : const Icon(
+//                 Icons.stop_circle_outlined,
+//               ),
+//         onPressed: () {
+//           setState(() {
+//             // Here we changing the icon.
+//             isPlaying = !isPlaying;
+//             if (isPlaying) {
+//               metronomeFunction.playClick();
+//             } else {}
+//           });
+//         });
+//   }
+// }
 
-  clickplays() {
-    print(isPlaying);
-    return isPlaying;
-  }
-}
+// class GetClickP with ChangeNotifier {
+//   clickplays() {
+//     print(isPlaying);
+//     return isPlaying;
+//   }
+// }

@@ -4,6 +4,9 @@ import 'control/round_button.dart';
 import 'control/slider_bpm.dart';
 import 'control/start_stop_button.dart';
 import 'metrolyse_stats.dart';
+import 'model/metronome_funktion.dart';
+
+// MetronomeFunction metronomeFunction = MetronomeFunction();
 
 class MetrolyseHome extends StatefulWidget {
   const MetrolyseHome({super.key});
@@ -25,7 +28,7 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
         body: const Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [StartStopBtn()],
+            children: [MetronomeFunction()],
           ),
           Padding(
             padding: EdgeInsets.all(15.0),
@@ -50,6 +53,7 @@ class ButtonStats extends StatelessWidget {
         size: 60,
       ),
       isTapped: () {
+        // metronomeFunction.playClick();
         Navigator.push(
             context,
             MaterialPageRoute(
