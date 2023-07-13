@@ -7,6 +7,7 @@ import 'package:audioplayers/audioplayers.dart';
 GetSliderBpm getSliderBpm = GetSliderBpm();
 // GetClickP getClickP = GetClickP();
 bool isPlaying = false;
+const src = 'audio/click.wav';
 
 int clickDuration = 60000 ~/ getSliderBpm.sliderBpmVal();
 final player = AudioPlayer();
@@ -27,20 +28,15 @@ class _MetronomeFunctionState extends State<MetronomeFunction> {
   }
 
   void playClick() {
-    clickTimer = Timer.periodic(
-        Duration(milliseconds: clickDuration), (_) => setClickCount());
+    setState(() => clickTimer = Timer.periodic(
+            Duration(milliseconds: clickDuration), (timer) async {
+          await player.play(AssetSource(src));
+        }));
   }
 
   void stopClick() {
     player.stop();
     setState(() => clickTimer!.cancel());
-  }
-
-  void setClickCount() {
-    setState(() async {
-      const src = 'audio/click.wav';
-      await player.play(AssetSource(src));
-    });
   }
 
   @override
@@ -68,6 +64,7 @@ class _MetronomeFunctionState extends State<MetronomeFunction> {
         });
   }
 }
+
 
 
 
