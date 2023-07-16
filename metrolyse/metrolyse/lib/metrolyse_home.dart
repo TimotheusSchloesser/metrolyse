@@ -4,6 +4,7 @@ import 'control/round_button.dart';
 import 'control/slider_bpm.dart';
 import 'control/start_stop_button.dart';
 import 'metrolyse_stats.dart';
+import 'model/animation.dart';
 import 'model/metronome_funktion.dart';
 
 // MetronomeFunction metronomeFunction = MetronomeFunction();
@@ -35,6 +36,7 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
             child: SliderBpm(),
           ),
           ButtonStats(),
+          LogoApp(),
         ]));
   }
 }
@@ -53,7 +55,6 @@ class ButtonStats extends StatelessWidget {
         size: 60,
       ),
       isTapped: () {
-        // metronomeFunction.playClick();
         Navigator.push(
             context,
             MaterialPageRoute(

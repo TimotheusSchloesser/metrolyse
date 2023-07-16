@@ -1,10 +1,19 @@
 import 'package:audioplayers/audioplayers.dart';
 
+//* Initializes the Audioplayers Plugin
+//and holds the Attributes to play the Click-Sound
+//
 class AudioPlay {
-  click() async {
-    const String src = 'audio/click.wav';
-    final player = AudioPlayer();
-    await player.play(AssetSource(src));
-    player.play(AssetSource(src));
-  }
+  //The audio source
+  String src = 'audio/click.wav';
+
+  //The AudioPlayer Class from AudioPlayers
+  final player = AudioPlayer();
+
+//Starts the Player and wait till everything is loading.
+  Future<void> playClick() async =>
+      await player.play(AssetSource(src), mode: PlayerMode.lowLatency);
+
+//Stops the Player
+  muteClick() => player.stop();
 }
