@@ -1,75 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class KeyPress extends StatefulWidget {
-  const KeyPress(
-      {Key? key,
-      required this.onPressed,
-      required this.label,
-      required this.color1,
-      required this.color2})
-      : super(key: key);
+/// Flutter code sample for [LogicalKeySet].
+int count = 0;
 
-  final VoidCallback onPressed;
-  final String label;
-  final Color color1;
-  final Color color2;
-
-  @override
-  State<KeyPress> createState() => _KeyPressState();
-}
-
-class _KeyPressState extends State<KeyPress> {
-  bool _isHovered = false;
-  bool _isFocused = false;
-  final FocusNode _focusNode = FocusNode();
-
-  void _handleFocusHighlight(bool value) {
-    setState(() {
-      _isFocused = value;
-    });
-  }
-
-  void _handleHoveHighlight(bool value) {
-    setState(() {
-      _isHovered = value;
-    });
-  }
+class KeyPress extends StatelessWidget {
+  const KeyPress({super.key});
 
   @override
   Widget build(BuildContext context) {
-    {
-      Color outlineColor = _isFocused ? Colors.black : Colors.transparent;
-      Color bgColor = _isHovered ? widget.color1 : widget.color2;
-      return GestureDetector(
-        onTap: _handlePressed,
-        child: FocusableActionDetector(
-          mouseCursor: SystemMouseCursors.click,
-          onShowFocusHighlight: _handleFocusHighlight,
-          onShowHoverHighlight: _handleHoveHighlight,
-          actions: {
-            ActivateIntent:
-                CallbackAction<Intent>(onInvoke: (_) => _handlePressed()),
-          },
-          shortcuts: const {
-            SingleActivator(LogicalKeyboardKey.keyZ, control: true):
-                ActivateIntent(),
-          },
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            child: Text(widget.label),
-            decoration: BoxDecoration(
-              color: bgColor,
-              border: Border.all(color: outlineColor, width: 2),
-            ),
+    return const Center(
+      child: LogicalKeySetExample(),
+    );
+  }
+}
+
+class IncrementIntent extends Intent {
+  const IncrementIntent();
+}
+
+class LogicalKeySetExample extends StatefulWidget {
+  const LogicalKeySetExample({super.key});
+
+  @override
+  State<LogicalKeySetExample> createState() => _LogicalKeySetExampleState();
+}
+
+class _LogicalKeySetExampleState extends State<LogicalKeySetExample> {
+  @override
+  Widget build(BuildContext context) {
+    return Shortcuts(
+      shortcuts: <ShortcutActivator, Intent>{
+        LogicalKeySet(LogicalKeyboardKey.keyC, LogicalKeyboardKey.controlLeft):
+            const IncrementIntent(),
+      },
+      child: Actions(
+        actions: <Type, Action<Intent>>{
+          IncrementIntent: CallbackAction<IncrementIntent>(
+            onInvoke: (IncrementIntent intent) => setState(() {
+              count = count + 1;
+            }),
+          ),
+        },
+        child: Focus(
+          autofocus: true,
+          child: Column(
+            children: <Widget>[
+              const Text(
+                'Add to the counter by pressing Ctrl+C',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+              Text(
+                'count: $count',
+                style: const TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+            ],
           ),
         ),
-      );
-    }
+      ),
+    );
   }
+}
 
-  void _handlePressed() {
-    _focusNode.requestFocus();
-    widget.onPressed();
+class GetKeyPress with ChangeNotifier {
+  keyPressVal() {
+    var count1 = count;
+    return count1;
   }
 }

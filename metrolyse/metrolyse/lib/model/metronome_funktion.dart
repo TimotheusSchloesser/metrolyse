@@ -3,6 +3,8 @@ import 'package:metrolyse/model/audio_play.dart';
 
 import '../control/slider_bpm.dart';
 import 'package:flutter/material.dart';
+
+import '../ui_components/constants.dart';
 // import '../control/start_stop_button.dart';
 
 GetSliderBpm getSliderBpm = GetSliderBpm();
@@ -44,6 +46,10 @@ class _MetronomeFunctionState extends State<MetronomeFunction> {
 
   IconButton playStopFunc() {
     return IconButton(
+        iconSize: 200,
+        padding: const EdgeInsets.all(100),
+        splashRadius: 100,
+        splashColor: innerButtonColor,
         icon: isPlaying
             ? const Icon(
                 Icons.stop_circle_outlined,
