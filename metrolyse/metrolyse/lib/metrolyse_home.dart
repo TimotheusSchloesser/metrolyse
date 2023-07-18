@@ -5,9 +5,11 @@ import 'control/slider_bpm.dart';
 import 'control/start_stop_button.dart';
 import 'metrolyse_stats.dart';
 import 'model/animation.dart';
+import 'model/key_press.dart';
 import 'model/metronome_funktion.dart';
 
 // MetronomeFunction metronomeFunction = MetronomeFunction();
+AnimationBall animation = AnimationBall();
 
 class MetrolyseHome extends StatefulWidget {
   const MetrolyseHome({super.key});
@@ -36,7 +38,7 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
             child: SliderBpm(),
           ),
           ButtonStats(),
-          LogoApp(),
+          AnimationBall(),
         ]));
   }
 }
@@ -65,7 +67,6 @@ class ButtonStats extends StatelessWidget {
   }
 }
 
-
 // class ButtonPlay extends StatelessWidget {
 //   const ButtonPlay({
 //     super.key,
@@ -74,13 +75,16 @@ class ButtonStats extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return RoundButton(
-//       color: innerButtonColor,
-//       content: const Icon(
-//         Icons.play_circle_filled_outlined,
-//         size: 60,
-//       ),
-//       isTapped: () {},
-//     );
+//         color: innerButtonColor,
+//         content: const Icon(
+//           Icons.play_circle_filled_outlined,
+//           size: 60,
+//         ),
+//         isTapped: () {
+//           setState(() {
+//             selected = !selected;
+//           });
+//         });
 //   }
 // }
 
