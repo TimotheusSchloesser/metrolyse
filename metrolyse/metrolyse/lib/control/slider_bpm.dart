@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../ui_components/constants.dart';
-import '../model/metronom_funktion.dart';
 
 double bpmInit = 150.0;
 
@@ -12,8 +11,6 @@ class SliderBpm extends StatefulWidget {
 }
 
 class _SliderBpmState extends State<SliderBpm> {
-  MetronomFunctions mF = MetronomFunctions();
-
   String bpmGetter = bpmInit.toInt().toString();
 
 // The BPM-Slider
