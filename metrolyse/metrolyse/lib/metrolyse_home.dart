@@ -29,14 +29,23 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
         body: const Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [MetronomeFunction()],
+            children: [
+              MetronomeFunction(),
+            ],
           ),
           Padding(
             padding: EdgeInsets.all(15.0),
             child: SliderBpm(),
           ),
+          //
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ButtonStats(),
+            ],
+          ),
           VisualCheck(),
-          ButtonStats(),
         ]));
   }
 }

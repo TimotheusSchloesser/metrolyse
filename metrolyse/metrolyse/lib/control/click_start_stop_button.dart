@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../model/metronome_funktion.dart';
@@ -19,8 +18,8 @@ class _ClickControlState extends State<ClickControl> {
   bool isPlaying = false;
   @override
   Widget build(BuildContext context) {
-    return StartStopBtn(
-        iconSize: 200,
+    return MyIconButton(
+        iconSize: 100,
         splashRadius: 100,
         splashColor: innerButtonColor,
         icon: isPlaying
