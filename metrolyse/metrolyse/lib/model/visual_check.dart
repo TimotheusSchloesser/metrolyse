@@ -26,7 +26,7 @@ class VisualCheckState extends State<VisualCheck> {
   }
 
   // double targetValue = 211.0;
-  bool selected = getSelected.selectedVal();
+  // bool selected = getSelected.selectedVal();
   @override
   Widget build(BuildContext context) {
     return Column(
