@@ -26,16 +26,19 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
             style: mainRegularTextStyle,
           ),
         ),
-        body: const Column(children: [
+        body: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [MetronomeFunction()],
+            children: [
+              MetronomeFunction(),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.all(15.0),
-            child: SliderBpm(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              VisualCheck(),
+            ],
           ),
-          VisualCheck(),
           ButtonStats(),
         ]));
   }

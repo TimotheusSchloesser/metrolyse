@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StartStopBtn extends StatelessWidget {
-  const StartStopBtn({
+class MyIconButton extends StatelessWidget {
+  const MyIconButton({
     super.key,
     required this.splashRadius,
     this.splashColor,

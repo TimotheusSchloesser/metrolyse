@@ -6,9 +6,9 @@ import '../control/click_start_stop_button.dart';
 import '../control/slider_bpm.dart';
 
 // Ojects of Imports
-GetSliderBpm getSliderBpm = GetSliderBpm();
 AudioPlay audioPlay = AudioPlay();
 
+// bool isPlaying = false;
 // The Class MetronomeFunction includes the Button to start/stop
 class MetronomeFunction extends StatefulWidget {
   const MetronomeFunction({super.key});
@@ -17,17 +17,38 @@ class MetronomeFunction extends StatefulWidget {
 }
 
 class MetronomeFunctionState extends State<MetronomeFunction> {
-  //The value to if Metronome plays on Button change.
-
   //Timer class
-  Timer? clickTimer;
+  Timer? _clickTimer;
 
-  // The click-BPM initialisation
-  final int clickDuration = 60000 ~/ getSliderBpm.sliderBpmVal();
 //ContextBuilder
   @override
   Widget build(BuildContext context) {
-    return const ClickControl();
+    return Container(
+      width: 1100,
+      child: Column(children: [
+        ClickControl(pressStart: () {
+          setState(
+            () {
+              // Here we changing the icon.
+              isPlaying = !isPlaying;
+              if (isPlaying) {
+                startClick();
+              } else {
+                stopClick();
+              }
+            },
+          );
+        }),
+        SliderBpm(
+          bpmInitChange: (double newValue) {
+            setState(() {
+              bpmInit = newValue;
+              updateClick();
+            });
+          },
+        ),
+      ]),
+    );
   }
 
 //Methods
@@ -38,16 +59,20 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
 
   // Starts the Metronome-Timer
   startClick() async {
-    clickTimer = Timer.periodic(
-        Duration(milliseconds: 60000 ~/ getSliderBpm.sliderBpmVal()),
-        (timer) => audioPlay.playClick());
-    if (mounted) setState(() {});
+    stopClick();
+    int duration = 60000 ~/ bpmInit;
+    _clickTimer = Timer.periodic(
+        Duration(milliseconds: duration), (timer) => audioPlay.playClick());
+  }
+
+  updateClick() async {
+    _clickTimer?.cancel();
+    startClick();
   }
 
   //Stops the Metronome-Timer
   void stopClick() {
     audioPlay.muteClick();
-    clickTimer!.cancel();
-    if (mounted) setState(() {});
+    _clickTimer?.cancel();
   }
 }

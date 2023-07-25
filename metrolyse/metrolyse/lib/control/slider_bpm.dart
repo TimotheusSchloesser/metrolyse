@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
+import '../model/metronome_funktion.dart';
 import '../ui_components/constants.dart';
+// import 'click_start_stop_button.dart';
 
 double bpmInit = 150.0;
 
 class SliderBpm extends StatefulWidget {
-  const SliderBpm({super.key});
+  const SliderBpm({super.key, required this.bpmInitChange});
+  final void Function(double) bpmInitChange;
 
   @override
   State<SliderBpm> createState() => _SliderBpmState();
 }
 
 class _SliderBpmState extends State<SliderBpm> {
+  MetronomeFunctionState metronomeFunction = MetronomeFunctionState();
   String bpmGetter = bpmInit.toInt().toString();
 
 // The BPM-Slider
   Slider bpmSlider() => Slider(
-      value: bpmInit,
-      min: 50,
-      max: 250,
-      onChanged: (double newValue) {
-        setState(() {
-          bpmInit = newValue;
-        });
-      });
-
-//Just the text for the BPM-Slider
+      value: bpmInit, min: 50, max: 250, onChanged: widget.bpmInitChange);
   Text bpmText() {
     return const Text(
       'BPM',
@@ -50,15 +45,8 @@ class _SliderBpmState extends State<SliderBpm> {
         child: Column(children: [
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [bpmValue(), const SizedBox(width: 10), bpmText()]),
+              children: [bpmValue(), const SizedBox(width: 5), bpmText()]),
           bpmSlider()
         ]));
-  }
-}
-
-class GetSliderBpm with ChangeNotifier {
-  sliderBpmVal() {
-    var bpm = bpmInit;
-    return bpm;
   }
 }

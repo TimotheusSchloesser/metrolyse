@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:metrolyse/ui_components/constants.dart';
 
 import 'control/controlModels/round_button.dart';
@@ -54,7 +53,6 @@ class ButtonBack extends StatelessWidget {
       ),
       isTapped: () {
         Navigator.pop(context);
-        SystemSound.play(SystemSoundType.click);
       },
     );
   }
