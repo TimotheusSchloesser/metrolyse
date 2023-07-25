@@ -43,7 +43,9 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
           bpmInitChange: (double newValue) {
             setState(() {
               bpmInit = newValue;
-              updateClick();
+              if (isPlaying) {
+                updateClick();
+              }
             });
           },
         ),
