@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrolyse/ui_components/constants.dart';
 import 'control/controlModels/round_button.dart';
-import 'control/slider_bpm.dart';
 import 'metrolyse_stats.dart';
 
 import 'model/metronome_funktion.dart';

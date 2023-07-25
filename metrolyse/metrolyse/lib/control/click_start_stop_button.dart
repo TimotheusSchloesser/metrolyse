@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:metrolyse/control/slider_bpm.dart';
 
 import '../model/metronome_funktion.dart';
 import '../ui_components/constants.dart';
