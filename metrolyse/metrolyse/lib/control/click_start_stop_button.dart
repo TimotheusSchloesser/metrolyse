@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart';
 import '../model/metronome_funktion.dart';
-import '../ui_components/constants.dart';
 import 'controlModels/icon_button.dart';
 
 bool isPlaying = false;

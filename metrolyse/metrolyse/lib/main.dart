@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:metrolyse/ui_components/constants.dart';
+import 'package:metrolyse/constants/constants.dart';
 
 import 'metrolyse_home.dart';
 

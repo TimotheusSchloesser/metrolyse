@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metrolyse/ui_components/constants.dart';
+import 'package:metrolyse/constants/constants.dart';
 import 'control/controlModels/round_button.dart';
 import 'metrolyse_stats.dart';
 
