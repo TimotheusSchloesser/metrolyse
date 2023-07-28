@@ -4,6 +4,7 @@ import 'control/controlModels/round_button.dart';
 import 'metrolyse_stats.dart';
 
 import 'model/metronome_funktion.dart';
+import 'model/test.dart';
 import 'model/visual_check.dart';
 
 // MetronomeFunction metronomeFunction = MetronomeFunction();
@@ -58,10 +59,18 @@ class ButtonStats extends StatelessWidget {
       ),
       isTapped: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MetrolyseStats(),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => MyApp(
+              items: List<ListItem>.generate(
+                12,
+                (i) => i % 6 == 0
+                    ? HeadingItem('Heading $i')
+                    : MessageItem('Sender $i', 'Message body $i'),
+              ),
+            ),
+          ),
+        );
       },
     );
   }

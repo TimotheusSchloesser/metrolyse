@@ -1,44 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:metrolyse/model/metronome_funktion.dart';
+// import 'package:flutter/material.dart';
+// import 'package:metrolyse/model/metronome_funktion.dart';
+// import 'package:metrolyse/model/visual_check.dart';
 
-import '../control/motion_input.dart';
+// VisualCheckState visualCS = VisualCheckState();
 
-MetronomeFunctionState metronomeFunctionState = MetronomeFunctionState();
+// class CheckAlgo extends StatelessWidget {
+//   const CheckAlgo(inputs, {
+//     super.key,
+//     required this.id,
+//     required this.date,
+//   });
 
-class CheckAlgo extends StatefulWidget {
-  const CheckAlgo({
-    super.key,
-    // required this.inputId, this.inputDate
-  });
-  // final int inputId;
-  // final DateTime? inputDate;
+//   final DateTime date;
+//   final dynamic id;
 
-  @override
-  State<CheckAlgo> createState() => CheckAlgoState();
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return CheckAlgo(id, date: DateTime.now(), id: null, );
+//   }
 
-class CheckAlgoState extends State<CheckAlgo> {
-  @override
-  Widget build(BuildContext context) {
-    return getTwelth();
-  }
 
-  getTwelth() async {
-    InsteadMotionButton(
-      isTapped: () {
-        // var metro = metronomeFunctionState.getTimerActive();
-        // var _metro = metro += metro;
+   //The time of input and the metronome time come together
+//   getTwelth() {
+//     visualCS.getInputs().forEach(inputs) => {
+//       let metro = getTimer()
+//       if (input.id < 12) {
+//         input.date += input.date
+//         metro += metro
+//       } else { counterPart(input.date, input.id, metro) }
 
-        // print(_metro);
-      },
-    );
-    // int metro = 2;
-    // metronomeFunctionState.getTimerActive();
-    // getInputs().forEach((input) => {metro = metro * 2, print(metro)});
-  }
+//     })
+//   }
 
-  // getInputs() {}
-}
+// }
+
 
 
 

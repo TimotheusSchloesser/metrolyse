@@ -65,6 +65,8 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
     int duration = 60000 ~/ bpmInit;
     _clickTimer = Timer.periodic(
         Duration(milliseconds: duration), (timer) => audioPlay.playClick());
+
+    getClickDate();
   }
 
   updateClick() async {
@@ -76,5 +78,10 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   void stopClick() {
     audioPlay.muteClick();
     _clickTimer?.cancel();
+  }
+
+  getClickDate() {
+    DateTime clickDate = DateTime.now();
+    return clickDate;
   }
 }
