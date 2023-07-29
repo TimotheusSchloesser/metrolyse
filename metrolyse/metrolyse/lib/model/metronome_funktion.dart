@@ -19,6 +19,7 @@ class MetronomeFunction extends StatefulWidget {
 class MetronomeFunctionState extends State<MetronomeFunction> {
   //Timer class
   Timer? _clickTimer;
+  Map metroMap = {"id": 0};
 
 //ContextBuilder
   @override
@@ -63,10 +64,11 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   startClick() async {
     stopClick();
     int duration = 60000 ~/ bpmInit;
-    _clickTimer = Timer.periodic(
-        Duration(milliseconds: duration), (timer) => audioPlay.playClick());
-
-    getClickDate();
+    _clickTimer = Timer.periodic(Duration(milliseconds: duration), (timer) {
+      audioPlay.playClick();
+      getClickDate();
+      printInput();
+    });
   }
 
   updateClick() async {
@@ -81,7 +83,39 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   }
 
   getClickDate() {
-    DateTime clickDate = DateTime.now();
+    int clickDate = DateTime.now().millisecondsSinceEpoch;
     return clickDate;
+  }
+
+  getmetroDates() {
+    int id = metroMap["id"];
+
+    int metronomeDate = getClickDate();
+    if (isPlaying && id < 12) {
+      metroMap[id] = metronomeDate;
+
+      // if (inputs[id] > 2) {
+      //   inputs.update(id, (value) => date + oldate);
+
+      //   print(date);
+      // }
+      // return metroMap.values.elementAt(id);
+    } else {
+      metroMap.clear();
+      metroMap["id"] = 0;
+      metroMap[0] = metronomeDate;
+      // metroMap["id"]++;
+      // return metroMap.values.elementAt(id);
+    }
+    if (id < 11) {
+      metroMap["id"]++;
+    }
+    int metro = metroMap.values.elementAt(id);
+    return metro;
+  }
+
+  printInput() {
+    // print("metro: ");
+    print(getmetroDates());
   }
 }

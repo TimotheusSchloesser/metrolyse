@@ -16,9 +16,8 @@ class VisualCheck extends StatefulWidget {
 
 class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = 0;
-  Map inputs = {
-    "id": 0,
-  };
+  Map inputs = {"id": 0};
+
   void start() {
     setState(() {
       _posFromLeft = bpmInit;
@@ -88,32 +87,38 @@ class VisualCheckState extends State<VisualCheck> {
 
     // int date = 10;
     int date = DateTime.now().millisecondsSinceEpoch;
-    int oldate = inputs.values.elementAt(id - 1);
+    // int oldate = inputs.values.elementAt(id - 1);
     if (isPlaying && id <= 11) {
       inputs[id] = date;
-      if (inputs[id] > 2) {
-        inputs.update(id, (value) => date + oldate);
+      // if (inputs[id] > 2) {
+      //   inputs.update(id, (value) => date + oldate);
 
-        print(date);
-      }
-      return inputs;
+      //   print(date);
+      // }
+      // return inputs.values.elementAt(inputs["id"]);
     } else {
       inputs.clear();
       inputs["id"] = 0;
-      inputs[0] = date;
+      id = 0;
+      inputs[id] = date;
       inputs["id"]++;
-      return inputs;
+      // return inputs.values.elementAt(inputs["id"]);
     }
+    int input = inputs.values.elementAt(inputs["id"]);
+    return input;
   }
 
-  // sumInputs(date) {
-  //   date += date;
-  //   print(date);
-  //   return date;
-  // }
+  valueInput(id) {
+    return inputs.values.elementAt(id);
+  }
 
   printInput() {
-    print(getInputs());
+    // print("input: ");
+    // print(getInputs());
+    int met = metronomeFunction.getmetroDates();
+    int imp = getInputs();
+    int div = imp - met;
+    print(div);
     // return getInputs();
   }
 }
