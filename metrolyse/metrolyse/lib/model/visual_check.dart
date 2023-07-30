@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metrolyse/control/click_start_stop_button.dart';
 import '../control/motion_input.dart';
-import '../control/slider_bpm.dart';
 import '../model/metronome_funktion.dart';
 import 'check_algorythm.dart';
 
