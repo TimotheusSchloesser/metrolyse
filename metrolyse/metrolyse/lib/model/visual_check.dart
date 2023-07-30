@@ -3,9 +3,11 @@ import 'package:metrolyse/control/click_start_stop_button.dart';
 import '../control/motion_input.dart';
 import '../control/slider_bpm.dart';
 import '../model/metronome_funktion.dart';
+import 'check_algorythm.dart';
 
 InsteadMotionButtonState getSelected = InsteadMotionButtonState();
 MetronomeFunctionState metronomeFunction = MetronomeFunctionState();
+CheckAlgo checkAlgo = CheckAlgo();
 
 class VisualCheck extends StatefulWidget {
   const VisualCheck({super.key});
@@ -16,19 +18,19 @@ class VisualCheck extends StatefulWidget {
 
 class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = 0;
-  Map inputs = {"id": 0};
 
-  void start() {
+  void start(double check) {
     setState(() {
-      _posFromLeft = bpmInit;
+      print("check $check");
+      _posFromLeft = check;
     });
   }
 
-  void end() {
-    setState(() {
-      _posFromLeft = bpmInit + 500;
-    });
-  }
+  // void end() {
+  //   setState(() {
+  //     _posFromLeft = check;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class VisualCheckState extends State<VisualCheck> {
                 left: _posFromLeft,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.fastOutSlowIn,
-                onEnd: end,
+                // onEnd: end,
                 child: const Divider(
                   thickness: 100,
                   // height: 50,
@@ -71,54 +73,23 @@ class VisualCheckState extends State<VisualCheck> {
         ),
         InsteadMotionButton(
           isTapped: () {
-            start();
-            // getInputs();
-            printInput();
+            if (checkAlgo.inputs.length == 11) {
+              double check = checkAlgo.printInput() + 550;
+              start(check);
+              print(check - 550);
+            }
+            checkAlgo.getInputs();
           },
         ),
       ],
     );
   }
 
-  getInputs() {
-    // List list = [inputs["id"], inputs["date"]];
-    int id = inputs["id"];
-    inputs["id"]++;
-
-    // int date = 10;
-    int date = DateTime.now().millisecondsSinceEpoch;
-    // int oldate = inputs.values.elementAt(id - 1);
-    if (isPlaying && id <= 11) {
-      inputs[id] = date;
-      // if (inputs[id] > 2) {
-      //   inputs.update(id, (value) => date + oldate);
-
-      //   print(date);
-      // }
-      // return inputs.values.elementAt(inputs["id"]);
-    } else {
-      inputs.clear();
-      inputs["id"] = 0;
-      id = 0;
-      inputs[id] = date;
-      inputs["id"]++;
-      // return inputs.values.elementAt(inputs["id"]);
-    }
-    int input = inputs.values.elementAt(inputs["id"]);
-    return input;
-  }
-
-  valueInput(id) {
-    return inputs.values.elementAt(id);
-  }
-
-  printInput() {
-    // print("input: ");
-    // print(getInputs());
-    int met = metronomeFunction.getmetroDates();
-    int imp = getInputs();
-    int div = imp - met;
-    print(div);
-    // return getInputs();
-  }
+  // sumMetroMap() {
+  //   Iterable values = inputs.values;
+  //   num result = values.reduce((sum, value) => sum + value);
+  //   result = result / inputs.length - 1;
+  //   print(result);
+  //   return result;
+  // }
 }

@@ -26,7 +26,7 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
             style: mainRegularTextStyle,
           ),
         ),
-        body: Column(children: [
+        body: const Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

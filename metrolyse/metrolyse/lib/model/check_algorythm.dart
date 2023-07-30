@@ -1,39 +1,80 @@
-// import 'package:flutter/material.dart';
-// import 'package:metrolyse/model/metronome_funktion.dart';
-// import 'package:metrolyse/model/visual_check.dart';
+import 'package:metrolyse/model/visual_check.dart';
 
-// VisualCheckState visualCS = VisualCheckState();
+import '../control/click_start_stop_button.dart';
 
-// class CheckAlgo extends StatelessWidget {
-//   const CheckAlgo(inputs, {
-//     super.key,
-//     required this.id,
-//     required this.date,
-//   });
+class CheckAlgo {
+  Map inputs = {"id": 0};
+  Map metroMap = {"id": 0};
 
-//   final DateTime date;
-//   final dynamic id;
+  sumValues(Map map, length) {
+    Iterable values = map.values;
+    num result = values.reduce((sum, value) => sum + value);
+    result = result / length - 1;
+    return result;
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return CheckAlgo(id, date: DateTime.now(), id: null, );
-//   }
+  getInputs() {
+    double inputSum = sumValues(inputs, inputs.length);
+    int _id = inputs["id"];
+    inputs["id"]++;
+    // int date = 10;
+    double date = ~DateTime.now().millisecondsSinceEpoch * 0.00000001;
 
+    if (isPlaying && inputs.length <= 12) {
+      inputs[_id] = date;
+      // print(inputs["id"]);
+      // print(_id);
+      if (inputs.length == 11) {
+        double inputSum = sumValues(inputs, inputs.length);
+        // print("input $inputSum");
+        return inputSum;
+      }
+    } else {
+      inputs.clear();
+      inputs["id"] = 0;
+      inputs[0] = date;
+      inputs["id"]++;
+    }
+    return inputSum;
+    // int input = inputs.values.elementAt(inputs["id"]);
+  }
 
-   //The time of input and the metronome time come together
-//   getTwelth() {
-//     visualCS.getInputs().forEach(inputs) => {
-//       let metro = getTimer()
-//       if (input.id < 12) {
-//         input.date += input.date
-//         metro += metro
-//       } else { counterPart(input.date, input.id, metro) }
+  metroDates() {
+    double metroSum = sumValues(metroMap, metroMap.length);
+    int id = metroMap["id"];
+    metroMap["id"]++;
+    double clickDate = ~metronomeFunction.getMetroDates() * 0.00000001;
+    if (isPlaying && inputs.length <= 12) {
+      metroMap[id] = clickDate;
+      if (inputs.length == 11) {
+        // double metroDiff = sumMetroMapVal() / sumMetroMapId();
+        // print(metroDiff);
+        double metroSum = sumValues(metroMap, metroMap.length);
+        // print("metro $metroSum");
+        return metroSum;
+      }
+    } else {
+      metroMap.clear();
+      metroMap["id"] = 0;
+      metroMap[0] = clickDate;
+      metroMap["id"]++;
+    }
+    return metroSum;
+  }
 
-//     })
-//   }
-
-// }
-
+  printInput() {
+    // print("input: ");
+    // print(getInputs());
+    if (inputs.length == 11) {
+      double met = metroDates();
+      double imp = getInputs();
+      print("1. $imp - 2. $met");
+      double div = met - imp;
+      // print(div);
+      return div;
+    }
+  }
+}
 
 
 

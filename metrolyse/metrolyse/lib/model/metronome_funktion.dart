@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:metrolyse/model/audio_play.dart';
+import 'package:metrolyse/model/visual_check.dart';
 import '../control/click_start_stop_button.dart';
 import '../control/slider_bpm.dart';
 
@@ -19,7 +20,6 @@ class MetronomeFunction extends StatefulWidget {
 class MetronomeFunctionState extends State<MetronomeFunction> {
   //Timer class
   Timer? _clickTimer;
-  Map metroMap = {"id": 0};
 
 //ContextBuilder
   @override
@@ -66,9 +66,15 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
     int duration = 60000 ~/ bpmInit;
     _clickTimer = Timer.periodic(Duration(milliseconds: duration), (timer) {
       audioPlay.playClick();
-      getClickDate();
-      printInput();
+      getMetroDates();
+      checkAlgo.metroDates();
+      // checkAlgo.counterMetro();
     });
+  }
+
+  getMetroDates() {
+    int clickDate = DateTime.now().millisecondsSinceEpoch;
+    return clickDate;
   }
 
   updateClick() async {
@@ -82,40 +88,20 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
     _clickTimer?.cancel();
   }
 
-  getClickDate() {
-    int clickDate = DateTime.now().millisecondsSinceEpoch;
-    return clickDate;
-  }
+  // sumMetroMapVal() {
+  //   Iterable values = metroMap.values;
+  //   num result = values.reduce((sum, value) => sum + value);
+  //   result = result / metroMap.length - 1;
+  //   print(result);
+  //   return result;
+  // }
 
-  getmetroDates() {
-    int id = metroMap["id"];
+  // sumMetroMapId() {
+  //   return
+  // }
 
-    int metronomeDate = getClickDate();
-    if (isPlaying && id < 12) {
-      metroMap[id] = metronomeDate;
-
-      // if (inputs[id] > 2) {
-      //   inputs.update(id, (value) => date + oldate);
-
-      //   print(date);
-      // }
-      // return metroMap.values.elementAt(id);
-    } else {
-      metroMap.clear();
-      metroMap["id"] = 0;
-      metroMap[0] = metronomeDate;
-      // metroMap["id"]++;
-      // return metroMap.values.elementAt(id);
-    }
-    if (id < 11) {
-      metroMap["id"]++;
-    }
-    int metro = metroMap.values.elementAt(id);
-    return metro;
-  }
-
-  printInput() {
-    // print("metro: ");
-    print(getmetroDates());
-  }
+  // printInput() {
+  //   // print("metro: ");
+  //   print(getmetroDates());
+  // }
 }
