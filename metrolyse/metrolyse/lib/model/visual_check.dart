@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:metrolyse/constants/constants.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 import '../control/motion_input.dart';
 import '../model/metronome_funktion.dart';
 import 'check_algorythm.dart';
@@ -15,79 +19,122 @@ class VisualCheck extends StatefulWidget {
 }
 
 class VisualCheckState extends State<VisualCheck> {
-  double _posFromLeft = 0;
+  double _posFromLeft = regWidth * 0.5;
+  List<double>? userAccelerometerValues;
+  static double x = 0.004;
+
+  final streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   void start(double check) {
     setState(() {
-      print("check $check");
       _posFromLeft = check;
     });
   }
 
-  // void end() {
-  //   setState(() {
-  //     _posFromLeft = check;
-  //   });
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    for (final subscription in streamSubscriptions) {
+      subscription.cancel();
+    }
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 1100,
-          height: 100,
-          decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                  stops: [0.0, 0.5, 1.0],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Color.fromARGB(255, 99, 99, 100),
-                    Color.fromARGB(53, 0, 94, 171),
-                    Color.fromARGB(255, 99, 99, 100),
-                  ]),
-              borderRadius: BorderRadius.circular(50)),
-          child: Stack(
-            children: <Widget>[
-              AnimatedPositioned(
-                width: 100.0,
-                height: 100.0,
-                left: _posFromLeft,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.fastOutSlowIn,
-                // onEnd: end,
-                child: const Divider(
-                  thickness: 100,
-                  // height: 50,
-                  indent: 40,
-                  endIndent: 40,
-                  color: Color.fromARGB(100, 33, 149, 243),
-                  // child: Center(child: Text('0')),
-                ),
-              ),
-            ],
-          ),
-        ),
-        InsteadMotionButton(
-          isTapped: () {
-            if (checkAlgo.inputs.length == 11) {
-              double check = checkAlgo.printInput() + 550;
-              start(check);
-              print(check - 550);
+  void initState() {
+    super.initState();
+    streamSubscriptions.add(
+      userAccelerometerEvents.listen(
+        (UserAccelerometerEvent event) {
+          setState(() {
+            userAccelerometerValues = <double>[event.x, event.y, event.z];
+            if (event.x >= x || event.y >= x || event.z >= x) {
+              print(event.x);
+              if (checkAlgo.inputs.length == 11) {
+                double check = checkAlgo.printInput() + regWidth * 0.5;
+                start(check);
+              }
+              checkAlgo.getInputs();
             }
-            checkAlgo.getInputs();
-          },
-        ),
-      ],
+          });
+        },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Accelerometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
+      ),
     );
   }
 
-  // sumMetroMap() {
-  //   Iterable values = inputs.values;
-  //   num result = values.reduce((sum, value) => sum + value);
-  //   result = result / inputs.length - 1;
-  //   print(result);
-  //   return result;
-  // }
+  @override
+  Widget build(BuildContext context) {
+    final userAccelerometer = userAccelerometerValues
+        ?.map((double v) => v.toStringAsFixed(1))
+        .toList();
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(
+              width: regWidth,
+              height: regHight,
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                      stops: [0.0, 0.5, 1.0],
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        backgroundColor,
+                        midColor,
+                        backgroundColor,
+                      ]),
+                  borderRadius: BorderRadius.circular(50)),
+              child: Stack(
+                children: <Widget>[
+                  AnimatedPositioned(
+                    width: regHight,
+                    height: regHight,
+                    left: _posFromLeft,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.fastOutSlowIn,
+                    // onEnd: end,
+                    child: const Divider(
+                      thickness: regHight,
+                      height: regHight,
+                      indent: 20,
+                      endIndent: 40,
+                      color: frontColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(350.0),
+          child: InsteadMotionButton(
+            isTapped: () {
+              if (checkAlgo.inputs.length == 11) {
+                double check = checkAlgo.printInput() + regWidth * 0.5;
+                start(check);
+              }
+              checkAlgo.getInputs();
+            },
+          ),
+        ),
+        Text(
+          'Accelerometer: $userAccelerometer',
+          style: const TextStyle(fontSize: 50, color: frontColor),
+        )
+      ],
+    );
+  }
 }

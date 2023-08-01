@@ -15,20 +15,16 @@ class InsteadMotionButton extends StatefulWidget {
 class InsteadMotionButtonState extends State<InsteadMotionButton> {
   // get isTapped => InsteadMotionButton.isTapped;
 
-  selectedVal() {
-    return selected;
-
-    // notifyListeners();
-
-    // selected = false;
-  }
+  // selectedVal() {
+  //   return selected;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return MyIconButton(
-        iconSize: 50,
-        splashRadius: 50,
-        splashColor: innerButtonColor,
+        iconSize: regIconSize * 2,
+        splashRadius: regIconSize,
+        splashColor: midColor,
         icon: const Icon(Icons.ads_click_rounded),
         isPressed: widget.isTapped);
   }

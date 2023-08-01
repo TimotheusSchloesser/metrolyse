@@ -19,9 +19,10 @@ class ClickControlState extends State<ClickControl> {
   @override
   Widget build(BuildContext context) {
     return MyIconButton(
-        iconSize: 100,
-        splashRadius: 10,
-        splashColor: innerButtonColor,
+        iconSize: regIconSize * 1.5,
+        splashRadius: regIconSize,
+        color: frontColor,
+        splashColor: midColor,
         icon: isPlaying
             ? const Icon(
                 Icons.stop_circle_outlined,

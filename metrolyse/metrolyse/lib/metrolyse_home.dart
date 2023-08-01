@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
+import 'control/accelerometer_control.dart';
 import 'control/controlModels/round_button.dart';
-import 'metrolyse_stats.dart';
 
 import 'model/metronome_funktion.dart';
 import 'model/test.dart';
@@ -21,26 +21,38 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Metrolyse',
-            style: mainRegularTextStyle,
+          backgroundColor: backgroundColor,
+          title: const Center(
+            child: Text(
+              'Metrolyse',
+              style: mainRegularTextStyle,
+            ),
           ),
         ),
-        body: const Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              MetronomeFunction(),
-            ],
+        body: const FittedBox(
+          child: Padding(
+            padding: EdgeInsets.all(100.0),
+            child: Column(children: [
+              Padding(
+                padding: EdgeInsets.all(100.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    MetronomeFunction(),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  VisualCheck(),
+                ],
+              ),
+              ButtonStats(),
+              // MyHomePage(),
+            ]),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              VisualCheck(),
-            ],
-          ),
-          ButtonStats(),
-        ]));
+        ));
   }
 }
 
@@ -52,10 +64,10 @@ class ButtonStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundButton(
-      color: innerButtonColor,
+      color: backgroundColor,
       content: const Icon(
         Icons.insert_chart_outlined_sharp,
-        size: 60,
+        size: regIconSize,
       ),
       isTapped: () {
         Navigator.push(

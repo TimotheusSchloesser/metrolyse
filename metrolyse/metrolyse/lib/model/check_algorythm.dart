@@ -5,6 +5,7 @@ import '../control/click_start_stop_button.dart';
 class CheckAlgo {
   Map inputs = {"id": 0};
   Map metroMap = {"id": 0};
+  static double factorToSeeVal = 0.00000001;
 
   sumValues(Map map, length) {
     Iterable values = map.values;
@@ -18,7 +19,7 @@ class CheckAlgo {
     int _id = inputs["id"];
     inputs["id"]++;
     // int date = 10;
-    double date = ~DateTime.now().millisecondsSinceEpoch * 0.00000001;
+    double date = ~DateTime.now().millisecondsSinceEpoch * factorToSeeVal;
 
     if (isPlaying && inputs.length <= 12) {
       inputs[_id] = date;
@@ -43,7 +44,7 @@ class CheckAlgo {
     double metroSum = sumValues(metroMap, metroMap.length);
     int id = metroMap["id"];
     metroMap["id"]++;
-    double clickDate = ~metronomeFunction.getMetroDates() * 0.00000001;
+    double clickDate = ~metronomeFunction.getMetroDates() * factorToSeeVal;
     if (isPlaying && inputs.length <= 12) {
       metroMap[id] = clickDate;
       if (inputs.length == 11) {

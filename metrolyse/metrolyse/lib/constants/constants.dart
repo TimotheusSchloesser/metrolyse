@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 
-const innerButtonColor = Color.fromARGB(30, 144, 144, 144);
-const silderBackgroundColor = Color.fromARGB(30, 144, 144, 144);
+const innerButtonColor = Color.fromARGB(255, 68, 23, 23);
+const silderBackgroundColor = backgroundColor;
 
-const mainRegularTextStyle = TextStyle(
+const frontColor = Color.fromARGB(255, 255, 255, 255);
+const midColor = Color.fromARGB(255, 57, 49, 59);
+const backgroundColor = Color.fromARGB(255, 67, 0, 82);
+const groundColor = Color.fromARGB(255, 0, 0, 0);
+
+const mainRegularTextStyle =
+    TextStyle(fontFamily: 'Sansation', fontSize: 40, color: frontColor);
+
+const bpmTextValueStyle = TextStyle(
     fontFamily: 'Sansation',
-    fontSize: 40,
-    color: Color.fromARGB(99, 255, 255, 255));
+    fontSize: 150,
+    color: Color.fromARGB(96, 222, 218, 218));
+
+const double regHight = 100;
+const double regWidth = 1100;
+const double regIconSize = 200;

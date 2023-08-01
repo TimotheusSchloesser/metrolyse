@@ -12,7 +12,9 @@ class AudioPlay {
 
 //Starts the Player and wait till everything is loading.
   Future<void> playClick() async {
-    await player.play(AssetSource(src), mode: PlayerMode.lowLatency);
+    //  final player = AudioPlayer();
+    await player.play(AssetSource(src));
+    // await player.play(AssetSource(src), mode: PlayerMode.lowLatency);
   }
 
 //Stops the Player

@@ -18,8 +18,8 @@ class Metrolyse extends StatelessWidget {
     return MaterialApp(
         title: 'Metrolyse',
         theme: ThemeData.dark().copyWith(
-            primaryColor: innerButtonColor,
-            scaffoldBackgroundColor: innerButtonColor,
+            primaryColor: midColor,
+            scaffoldBackgroundColor: groundColor,
             textTheme:
                 Theme.of(context).textTheme.apply(fontFamily: 'Sansation')),
         home: const MetrolyseHome());

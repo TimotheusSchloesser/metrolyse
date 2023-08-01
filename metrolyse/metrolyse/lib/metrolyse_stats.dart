@@ -46,7 +46,7 @@ class ButtonBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundButton(
-      color: innerButtonColor,
+      color: frontColor,
       content: const Icon(
         Icons.home_filled,
         size: 60,

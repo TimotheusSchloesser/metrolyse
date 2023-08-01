@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:metrolyse/model/audio_play.dart';
 import 'package:metrolyse/model/visual_check.dart';
+import '../constants/constants.dart';
 import '../control/click_start_stop_button.dart';
 import '../control/slider_bpm.dart';
 
@@ -25,12 +26,11 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 1100,
+      width: regWidth,
       child: Column(children: [
         ClickControl(pressStart: () {
           setState(
             () {
-              // Here we changing the icon.
               isPlaying = !isPlaying;
               if (isPlaying) {
                 startClick();
@@ -64,10 +64,13 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   startClick() async {
     stopClick();
     int duration = 60000 ~/ bpmInit;
-    _clickTimer = Timer.periodic(Duration(milliseconds: duration), (timer) {
-      audioPlay.playClick();
+    _clickTimer =
+        Timer.periodic(Duration(milliseconds: duration), (timer) async {
+      await audioPlay.playClick();
+      // SystemSound.play(SystemSoundType.click);
       getMetroDates();
       checkAlgo.metroDates();
+      print("test");
       // checkAlgo.counterMetro();
     });
   }
@@ -82,26 +85,9 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
     startClick();
   }
 
-  //Stops the Metronome-Timer
+  // //Stops the Metronome-Timer
   void stopClick() {
     audioPlay.muteClick();
     _clickTimer?.cancel();
   }
-
-  // sumMetroMapVal() {
-  //   Iterable values = metroMap.values;
-  //   num result = values.reduce((sum, value) => sum + value);
-  //   result = result / metroMap.length - 1;
-  //   print(result);
-  //   return result;
-  // }
-
-  // sumMetroMapId() {
-  //   return
-  // }
-
-  // printInput() {
-  //   // print("metro: ");
-  //   print(getmetroDates());
-  // }
 }
