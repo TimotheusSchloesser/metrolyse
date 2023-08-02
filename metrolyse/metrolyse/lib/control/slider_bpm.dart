@@ -27,7 +27,7 @@ class _SliderBpmState extends State<SliderBpm> {
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 50.0),
       ),
       child: SizedBox(
-          width: 1000,
+          width: regWidth,
           child: Slider(
             value: bpmInit,
             min: 50,

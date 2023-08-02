@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import '../control/motion_input.dart';
+import '../control/sensibility_slider.dart';
 import '../model/metronome_funktion.dart';
 import 'check_algorythm.dart';
 
@@ -21,7 +22,6 @@ class VisualCheck extends StatefulWidget {
 class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = regWidth * 0.5;
   List<double>? userAccelerometerValues;
-  static double x = 0.004;
 
   final streamSubscriptions = <StreamSubscription<dynamic>>[];
 
@@ -39,6 +39,8 @@ class VisualCheckState extends State<VisualCheck> {
     }
   }
 
+  double oldDate = 0;
+
   @override
   void initState() {
     super.initState();
@@ -46,15 +48,22 @@ class VisualCheckState extends State<VisualCheck> {
       userAccelerometerEvents.listen(
         (UserAccelerometerEvent event) {
           setState(() {
-            userAccelerometerValues = <double>[event.x, event.y, event.z];
-            if (event.x >= x || event.y >= x || event.z >= x) {
-              print(event.x);
-              if (checkAlgo.inputs.length == 11) {
-                double check = checkAlgo.printInput() + regWidth * 0.5;
-                start(check);
+            double regDate = DateTime.now().millisecondsSinceEpoch.toDouble();
+            if (oldDate != regDate) {
+              userAccelerometerValues = <double>[event.x, event.y, event.z];
+              if (event.x >= sensValue * 0.005 ||
+                  event.y >= sensValue * 0.005 ||
+                  event.z >= sensValue * 0.005 && oldDate != regDate) {
+                print(" old $oldDate");
+                print(sensValue * 0.005);
+                if (checkAlgo.inputs.length == 11) {
+                  double check = checkAlgo.printInput() + regWidth * 0.5;
+                  start(check);
+                }
+                checkAlgo.getInputs();
               }
-              checkAlgo.getInputs();
             }
+            oldDate = regDate;
           });
         },
         onError: (e) {

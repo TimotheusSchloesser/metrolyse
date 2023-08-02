@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
-import 'control/accelerometer_control.dart';
 import 'control/controlModels/round_button.dart';
 
+import 'control/sensibility_slider.dart';
 import 'model/metronome_funktion.dart';
 import 'model/test.dart';
 import 'model/visual_check.dart';
@@ -25,16 +25,16 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
           title: const Center(
             child: Text(
               'Metrolyse',
-              style: mainRegularTextStyle,
+              style: titelTextStyle,
             ),
           ),
         ),
         body: const FittedBox(
           child: Padding(
-            padding: EdgeInsets.all(100.0),
+            padding: EdgeInsets.all(50.0),
             child: Column(children: [
               Padding(
-                padding: EdgeInsets.all(100.0),
+                padding: EdgeInsets.all(50.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -48,7 +48,19 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
                   VisualCheck(),
                 ],
               ),
-              ButtonStats(),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    ButtonStats(),
+                    Padding(
+                      padding: EdgeInsets.only(left: 200.0),
+                      child: SensSlider(),
+                    ),
+                  ],
+                ),
+              ),
+
               // MyHomePage(),
             ]),
           ),
