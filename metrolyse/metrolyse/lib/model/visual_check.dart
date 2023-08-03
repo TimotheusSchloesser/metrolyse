@@ -54,10 +54,10 @@ class VisualCheckState extends State<VisualCheck> {
               if (event.x >= sensValue * 0.005 ||
                   event.y >= sensValue * 0.005 ||
                   event.z >= sensValue * 0.005 && oldDate != regDate) {
-                print(" old $oldDate");
-                print(sensValue * 0.005);
+                // print(" old $oldDate");
+                // print(sensValue * 0.005);
                 if (checkAlgo.inputs.length == 11) {
-                  double check = checkAlgo.printInput() + regWidth * 0.5;
+                  double check = checkAlgo.getDiv() + regWidth * 0.5;
                   start(check);
                 }
                 checkAlgo.getInputs();
@@ -132,7 +132,7 @@ class VisualCheckState extends State<VisualCheck> {
           child: InsteadMotionButton(
             isTapped: () {
               if (checkAlgo.inputs.length == 11) {
-                double check = checkAlgo.printInput() + regWidth * 0.5;
+                double check = checkAlgo.getDiv() + regWidth * 0.5;
                 start(check);
               }
               checkAlgo.getInputs();

@@ -3,8 +3,8 @@ import 'package:metrolyse/constants/constants.dart';
 import 'control/controlModels/round_button.dart';
 
 import 'control/sensibility_slider.dart';
+import 'metrolyse_stats.dart';
 import 'model/metronome_funktion.dart';
-import 'model/test.dart';
 import 'model/visual_check.dart';
 
 // MetronomeFunction metronomeFunction = MetronomeFunction();
@@ -82,19 +82,18 @@ class ButtonStats extends StatelessWidget {
         size: regIconSize,
       ),
       isTapped: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MyApp(
-              items: List<ListItem>.generate(
-                12,
-                (i) => i % 6 == 0
-                    ? HeadingItem('Heading $i')
-                    : MessageItem('Sender $i', 'Message body $i'),
-              ),
-            ),
-          ),
-        );
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MetrolyseStats())
+            // MyApp(
+            //     items: List<ListItem>.generate(
+            //       12,
+            //       (i) => i % 6 == 0
+            //           ? HeadingItem('Heading $i')
+            //           : MessageItem('Sender $i', 'Message body $i'),
+            //     ),
+            //   ),
+            // ),
+            );
       },
     );
   }
