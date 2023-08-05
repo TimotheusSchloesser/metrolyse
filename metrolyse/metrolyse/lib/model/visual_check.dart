@@ -1,4 +1,4 @@
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
@@ -8,6 +8,7 @@ import '../control/sensibility_slider.dart';
 import '../model/metronome_funktion.dart';
 import 'check_algorythm.dart';
 
+const double sensFactor = 0.003;
 InsteadMotionButtonState getSelected = InsteadMotionButtonState();
 MetronomeFunctionState metronomeFunction = MetronomeFunctionState();
 CheckAlgo checkAlgo = CheckAlgo();
@@ -21,9 +22,10 @@ class VisualCheck extends StatefulWidget {
 
 class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = regWidth * 0.5;
-  List<double>? userAccelerometerValues;
+  // List<double>? hitValues;
+  //  List<double>? userAccelerometerValues;
 
-  final streamSubscriptions = <StreamSubscription<dynamic>>[];
+  // final streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   void start(double check) {
     setState(() {
@@ -34,33 +36,29 @@ class VisualCheckState extends State<VisualCheck> {
   @override
   void dispose() {
     super.dispose();
-    for (final subscription in streamSubscriptions) {
-      subscription.cancel();
-    }
   }
 
   double oldDate = 0;
-
+  bool hasAccelerometer = false;
   @override
   void initState() {
     super.initState();
-    streamSubscriptions.add(
+    accRun();
+  }
+
+  void accRun() {
+    try {
       userAccelerometerEvents.listen(
         (UserAccelerometerEvent event) {
           setState(() {
             double regDate = DateTime.now().millisecondsSinceEpoch.toDouble();
             if (oldDate != regDate) {
-              userAccelerometerValues = <double>[event.x, event.y, event.z];
-              if (event.x >= sensValue * 0.005 ||
-                  event.y >= sensValue * 0.005 ||
-                  event.z >= sensValue * 0.005 && oldDate != regDate) {
-                // print(" old $oldDate");
-                // print(sensValue * 0.005);
-                if (checkAlgo.inputs.length == 11) {
-                  double check = checkAlgo.getDiv() + regWidth * 0.5;
-                  start(check);
-                }
-                checkAlgo.getInputs();
+              if (event.x >= sensValue * sensFactor ||
+                  event.y >= sensValue * sensFactor ||
+                  event.z >= sensValue * sensFactor) {
+                print(regDate);
+                print(sensValue * sensFactor);
+                checkSum();
               }
             }
             oldDate = regDate;
@@ -78,15 +76,25 @@ class VisualCheckState extends State<VisualCheck> {
               });
         },
         cancelOnError: true,
-      ),
-    );
+        // ),
+      );
+    } catch (e) {
+      setState(() {
+        hasAccelerometer = false;
+      });
+    }
+  }
+
+  checkSum() {
+    if (checkAlgo.inputs.length == lengthValToSum - 1) {
+      double check = checkAlgo.getDiv() + regWidth * 0.5;
+      start(check);
+    }
+    checkAlgo.getInputs();
   }
 
   @override
   Widget build(BuildContext context) {
-    final userAccelerometer = userAccelerometerValues
-        ?.map((double v) => v.toStringAsFixed(1))
-        .toList();
     return Column(
       children: [
         Row(
@@ -131,17 +139,13 @@ class VisualCheckState extends State<VisualCheck> {
           padding: const EdgeInsets.all(350.0),
           child: InsteadMotionButton(
             isTapped: () {
-              if (checkAlgo.inputs.length == 11) {
-                double check = checkAlgo.getDiv() + regWidth * 0.5;
-                start(check);
-              }
-              checkAlgo.getInputs();
+              checkSum();
             },
           ),
         ),
         Text(
-          'Accelerometer: $userAccelerometer',
-          style: const TextStyle(fontSize: 50, color: frontColor),
+          hasAccelerometer ? "Yes" : "No",
+          style: mainRegularTextStyle,
         )
       ],
     );

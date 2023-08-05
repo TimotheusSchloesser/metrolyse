@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
-import 'control/controlModels/round_button.dart';
-
+import 'control/button_to_stats.dart';
 import 'control/sensibility_slider.dart';
-import 'metrolyse_stats.dart';
 import 'model/metronome_funktion.dart';
 import 'model/visual_check.dart';
 
@@ -60,41 +58,8 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
                   ],
                 ),
               ),
-
-              // MyHomePage(),
             ]),
           ),
         ));
-  }
-}
-
-class ButtonStats extends StatelessWidget {
-  const ButtonStats({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RoundButton(
-      color: backgroundColor,
-      content: const Icon(
-        Icons.insert_chart_outlined_sharp,
-        size: regIconSize,
-      ),
-      isTapped: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const MetrolyseStats())
-            // MyApp(
-            //     items: List<ListItem>.generate(
-            //       12,
-            //       (i) => i % 6 == 0
-            //           ? HeadingItem('Heading $i')
-            //           : MessageItem('Sender $i', 'Message body $i'),
-            //     ),
-            //   ),
-            // ),
-            );
-      },
-    );
   }
 }

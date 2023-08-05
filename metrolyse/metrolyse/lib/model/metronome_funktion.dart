@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:metrolyse/model/audio_play.dart';
 import 'package:metrolyse/model/visual_check.dart';
 import 'package:reliable_interval_timer/reliable_interval_timer.dart';
@@ -7,7 +6,8 @@ import '../constants/constants.dart';
 import '../control/click_start_stop_button.dart';
 import '../control/slider_bpm.dart';
 
-// Ojects of Imports
+//Minute Value
+const int min = 60000;
 
 // bool isPlaying = false;
 // The Class MetronomeFunction includes the Button to start/stop
@@ -22,8 +22,6 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   ReliableIntervalTimer? _clickTimer;
 
   AudioPlay audioPlay = AudioPlay();
-
-  int duration = (60000 ~/ bpmInit);
 
 //ContextBuilder
   @override
@@ -62,7 +60,7 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   void initState() {
     super.initState();
     _clickTimer = ReliableIntervalTimer(
-        interval: Duration(milliseconds: duration),
+        interval: Duration(milliseconds: min ~/ bpmInit),
         callback: (int elapsedMilliseconds) async {
           await audioPlay.playClick();
           // SystemSound.play(SystemSoundType.click);
@@ -84,7 +82,7 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   }
 
   updateClick() {
-    _clickTimer?.updateInterval(Duration(milliseconds: duration));
+    _clickTimer?.updateInterval(Duration(milliseconds: min ~/ bpmInit));
   }
 
   // //Stops the Metronome-Timer

@@ -2,10 +2,13 @@ import 'package:metrolyse/model/visual_check.dart';
 
 import '../control/click_start_stop_button.dart';
 
+const double factorToSeeVal = 0.00000001;
+const int lengthValToSum = 4;
+
 class CheckAlgo {
   Map inputs = {"id": 0};
   Map metroMap = {"id": 0};
-  static double factorToSeeVal = 0.00000001;
+  Map allDiv = {};
 
   sumValues(Map map, length) {
     Iterable values = map.values;
@@ -14,53 +17,33 @@ class CheckAlgo {
     return result;
   }
 
-  getInputs() {
-    double inputSum = sumValues(inputs, inputs.length);
-    int idI = inputs["id"];
-    inputs["id"]++;
-    // int date = 10;
-    double date = ~DateTime.now().millisecondsSinceEpoch * factorToSeeVal;
-
-    if (isPlaying && inputs.length <= 12) {
-      inputs[idI] = date;
-      // print(inputs["id"]);
-      // print(_id);
-      if (inputs.length == 11) {
-        double inputSum = sumValues(inputs, inputs.length);
-        // print("input $inputSum");
-        return inputSum;
+  getMapsSums(Map map, double date) {
+    double mapSum = sumValues(map, map.length);
+    int id = map["id"];
+    map["id"]++;
+    double dateSum = date * factorToSeeVal;
+    if (isPlaying && map.length <= lengthValToSum) {
+      map[id] = dateSum;
+      if (map.length == lengthValToSum - 1) {
+        mapSum = sumValues(map, map.length);
+        return mapSum;
       }
     } else {
-      inputs.clear();
-      inputs["id"] = 0;
-      inputs[0] = date;
-      inputs["id"]++;
+      map.clear();
+      map["id"] = 0;
+      map[0] = dateSum;
+      map["id"]++;
     }
-    return inputSum;
+    return mapSum;
   }
 
-  metroDates() {
-    double metroSum = sumValues(metroMap, metroMap.length);
-    int id = metroMap["id"];
-    metroMap["id"]++;
-    double clickDate = ~metronomeFunction.getMetroDates() * factorToSeeVal;
-    if (isPlaying && inputs.length <= 12) {
-      metroMap[id] = clickDate;
-      if (inputs.length == 11) {
-        double metroSum = sumValues(metroMap, metroMap.length);
-        return metroSum;
-      }
-    } else {
-      metroMap.clear();
-      metroMap["id"] = 0;
-      metroMap[0] = clickDate;
-      metroMap["id"]++;
-    }
-    return metroSum;
-  }
+  getInputs() =>
+      getMapsSums(inputs, DateTime.now().millisecondsSinceEpoch.toDouble());
+  metroDates() =>
+      getMapsSums(metroMap, metronomeFunction.getMetroDates().toDouble());
 
   getDiv() {
-    if (inputs.length == 11) {
+    if (inputs.length == lengthValToSum - 1) {
       double met = metroDates();
       double imp = getInputs();
       double div = met - imp;
@@ -68,3 +51,48 @@ class CheckAlgo {
     }
   }
 }
+
+
+
+
+ // metroDates() {
+  //   double metroSum = sumValues(metroMap, metroMap.length);
+  //   int id = metroMap["id"];
+  //   metroMap["id"]++;
+  //   double clickDate = metronomeFunction.getMetroDates() * factorToSeeVal;
+  //   if (isPlaying && inputs.length <= 12) {
+  //     metroMap[id] = clickDate;
+  //     if (inputs.length == 11) {
+  //       double metroSum = sumValues(metroMap, metroMap.length);
+  //       return metroSum;
+  //     }
+  //   } else {
+  //     metroMap.clear();
+  //     metroMap["id"] = 0;
+  //     metroMap[0] = clickDate;
+  //     metroMap["id"]++;
+  //   }
+  //   return metroSum;
+  // }
+
+
+  // getInputs() {
+  //   double inputSum = sumValues(inputs, inputs.length);
+  //   int idI = inputs["id"];
+  //   inputs["id"]++;
+  //   double date = ~DateTime.now().millisecondsSinceEpoch * factorToSeeVal;
+
+  //   if (isPlaying && inputs.length <= 12) {
+  //     inputs[idI] = date;
+  //     if (inputs.length == 11) {
+  //       double inputSum = sumValues(inputs, inputs.length);
+  //       return inputSum;
+  //     }
+  //   } else {
+  //     inputs.clear();
+  //     inputs["id"] = 0;
+  //     inputs[0] = date;
+  //     inputs["id"]++;
+  //   }
+  //   return inputSum;
+  // }

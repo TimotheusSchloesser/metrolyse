@@ -6,7 +6,10 @@ import 'controlModels/icon_button.dart';
 var selected = false;
 
 class InsteadMotionButton extends StatefulWidget {
-  const InsteadMotionButton({super.key, required this.isTapped});
+  const InsteadMotionButton({
+    super.key,
+    required this.isTapped,
+  });
   final VoidCallback isTapped;
   @override
   State<InsteadMotionButton> createState() => InsteadMotionButtonState();
