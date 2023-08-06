@@ -49,19 +49,7 @@ class CheckAlgo {
       if (div >= 10000 || div <= -10000) {
         div = 0;
       }
-      print(div);
       return div;
     }
   }
-
-  // allSum() {
-  //   int divSums = getDiv();
-  //   int id = allDiv["id"];
-  //   allDiv["id"]++;
-  //   allDiv[id] = divSums;
-  //   // if () {
-  //   // id++;
-  //   print(allDiv);
-  //   // }
-  // }
 }
