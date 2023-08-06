@@ -77,7 +77,7 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   }
 
   getMetroDates() {
-    int clickDate = DateTime.now().millisecondsSinceEpoch;
+    double clickDate = DateTime.now().millisecondsSinceEpoch.toDouble();
     return clickDate;
   }
 

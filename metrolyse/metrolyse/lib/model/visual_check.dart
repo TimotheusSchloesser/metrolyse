@@ -22,6 +22,8 @@ class VisualCheck extends StatefulWidget {
 
 class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = regWidth * 0.5;
+  double valueToBeMid = 500;
+  double check = 0;
   // List<double>? hitValues;
   //  List<double>? userAccelerometerValues;
 
@@ -29,7 +31,10 @@ class VisualCheckState extends State<VisualCheck> {
 
   void start(double check) {
     setState(() {
-      _posFromLeft = check;
+      if (check != 0) {
+        _posFromLeft = check;
+        // print(_posFromLeft);
+      }
     });
   }
 
@@ -43,52 +48,47 @@ class VisualCheckState extends State<VisualCheck> {
   @override
   void initState() {
     super.initState();
+
     accRun();
   }
 
   void accRun() {
-    try {
-      userAccelerometerEvents.listen(
-        (UserAccelerometerEvent event) {
-          setState(() {
-            double regDate = DateTime.now().millisecondsSinceEpoch.toDouble();
-            if (oldDate != regDate) {
-              if (event.x >= sensValue * sensFactor ||
-                  event.y >= sensValue * sensFactor ||
-                  event.z >= sensValue * sensFactor) {
-                print(regDate);
-                print(sensValue * sensFactor);
-                checkSum();
-              }
+    userAccelerometerEvents.listen(
+      (UserAccelerometerEvent event) {
+        setState(() {
+          double regDate = DateTime.now().millisecondsSinceEpoch.toDouble();
+          if (oldDate != regDate) {
+            if (event.x >= sensValue * sensFactor ||
+                event.y >= sensValue * sensFactor ||
+                event.z >= sensValue * sensFactor) {
+              // print(regDate);
+              // print(sensValue * sensFactor);
+              checkSum();
             }
-            oldDate = regDate;
-          });
-        },
-        onError: (e) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text(
-                      "It seems that your device doesn't support Accelerometer Sensor"),
-                );
-              });
-        },
-        cancelOnError: true,
-        // ),
-      );
-    } catch (e) {
-      setState(() {
-        hasAccelerometer = false;
-      });
-    }
+          }
+          oldDate = regDate;
+        });
+      },
+      onError: (e) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text("Sensor Not Found"),
+                content: Text(
+                    "It seems that your device doesn't support Accelerometer Sensor"),
+              );
+            });
+      },
+      cancelOnError: true,
+      // ),
+    );
   }
 
   checkSum() {
-    if (checkAlgo.inputs.length == lengthValToSum - 1) {
-      double check = checkAlgo.getDiv() + regWidth * 0.5;
-      start(check);
+    if (checkAlgo.metroMap.length == lengthValToSum) {
+      check = checkAlgo.getDiv();
+      start(check + valueToBeMid);
     }
     checkAlgo.getInputs();
   }
