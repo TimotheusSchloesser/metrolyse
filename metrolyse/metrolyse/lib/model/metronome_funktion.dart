@@ -1,14 +1,14 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-
 import 'package:metrolyse/model/audio_play.dart';
+import 'package:metrolyse/model/visual_check.dart';
+import 'package:reliable_interval_timer/reliable_interval_timer.dart';
+import '../constants/constants.dart';
 import '../control/click_start_stop_button.dart';
 import '../control/slider_bpm.dart';
 
-// Ojects of Imports
-AudioPlay audioPlay = AudioPlay();
+//Minute Value
+const int min = 60000;
 
-// bool isPlaying = false;
 // The Class MetronomeFunction includes the Button to start/stop
 class MetronomeFunction extends StatefulWidget {
   const MetronomeFunction({super.key});
@@ -18,18 +18,19 @@ class MetronomeFunction extends StatefulWidget {
 
 class MetronomeFunctionState extends State<MetronomeFunction> {
   //Timer class
-  Timer? _clickTimer;
+  ReliableIntervalTimer? _clickTimer;
+
+  AudioPlay audioPlay = AudioPlay();
 
 //ContextBuilder
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 1100,
+    return SizedBox(
+      width: regWidth,
       child: Column(children: [
         ClickControl(pressStart: () {
           setState(
             () {
-              // Here we changing the icon.
               isPlaying = !isPlaying;
               if (isPlaying) {
                 startClick();
@@ -43,7 +44,9 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
           bpmInitChange: (double newValue) {
             setState(() {
               bpmInit = newValue;
-              updateClick();
+              if (isPlaying) {
+                updateClick();
+              }
             });
           },
         ),
@@ -55,24 +58,42 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   @override
   void initState() {
     super.initState();
+    _clickTimer = ReliableIntervalTimer(
+        interval: Duration(milliseconds: min ~/ bpmInit),
+        callback: (int elapsedMilliseconds) async {
+          await audioPlay.playClick();
+          // SystemSound.play(SystemSoundType.click);
+          getMetroDates();
+          checkAlgo.metroDates();
+        });
   }
 
   // Starts the Metronome-Timer
   startClick() async {
-    stopClick();
-    int duration = 60000 ~/ bpmInit;
-    _clickTimer = Timer.periodic(
-        Duration(milliseconds: duration), (timer) => audioPlay.playClick());
+    // _clickTimer?.stop();
+    _clickTimer?.start();
+    // stopClick();
   }
 
-  updateClick() async {
-    _clickTimer?.cancel();
-    startClick();
+// Sets the click or acceleration Date
+  getMetroDates() {
+    double clickDate = DateTime.now().millisecondsSinceEpoch.toDouble();
+    return clickDate;
   }
 
-  //Stops the Metronome-Timer
-  void stopClick() {
-    audioPlay.muteClick();
-    _clickTimer?.cancel();
+  updateClick() {
+    _clickTimer?.updateInterval(Duration(milliseconds: min ~/ bpmInit));
+  }
+
+  // //Stops the Metronome-Timer
+  void stopClick() async {
+    // audioPlay.muteClick();
+    await _clickTimer?.stop();
+  }
+
+  @override
+  void dispose() {
+    _clickTimer?.stop();
+    super.dispose();
   }
 }

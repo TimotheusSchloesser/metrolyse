@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 
 //* Initializes the Audioplayers Plugin
 //and holds the Attributes to play the Click-Sound
-//
+//*
 class AudioPlay {
   //The audio source
   String src = 'audio/click.wav';
@@ -12,7 +12,7 @@ class AudioPlay {
 
 //Starts the Player and wait till everything is loading.
   Future<void> playClick() async {
-    await player.play(AssetSource(src), mode: PlayerMode.lowLatency);
+    await player.play(AssetSource(src));
   }
 
 //Stops the Player
@@ -21,10 +21,12 @@ class AudioPlay {
     //
   }
 
+//Pause the Player
   pauseClick() {
     player.pause();
   }
 
+//Resume the Player
   Future<void> resumeClick() => player.resume();
 
   disposeClick() => player.dispose();

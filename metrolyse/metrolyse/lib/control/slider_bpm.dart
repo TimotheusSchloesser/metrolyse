@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import '../constants/constants.dart';
 import '../model/metronome_funktion.dart';
-import '../ui_components/constants.dart';
-// import 'click_start_stop_button.dart';
 
 double bpmInit = 150.0;
 
@@ -18,12 +17,27 @@ class _SliderBpmState extends State<SliderBpm> {
   String bpmGetter = bpmInit.toInt().toString();
 
 // The BPM-Slider
-  Slider bpmSlider() => Slider(
-      value: bpmInit, min: 50, max: 250, onChanged: widget.bpmInitChange);
+  bpmSlider() => SliderTheme(
+      data: SliderTheme.of(context).copyWith(
+        activeTrackColor: midColor,
+        inactiveTrackColor: midColor,
+        trackShape: const RoundedRectSliderTrackShape(),
+        trackHeight: 30.0,
+        thumbColor: frontColor,
+        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 50.0),
+      ),
+      child: SizedBox(
+          width: regWidth,
+          child: Slider(
+            value: bpmInit,
+            min: 50,
+            max: 250,
+            onChanged: widget.bpmInitChange,
+          )));
   Text bpmText() {
     return const Text(
-      'BPM',
-      style: mainRegularTextStyle,
+      '  BPM',
+      style: bpmTextValueStyle,
       textScaleFactor: 0.5,
     );
   }
@@ -31,8 +45,8 @@ class _SliderBpmState extends State<SliderBpm> {
   //Just the text for the BPM-Slider
   Text bpmValue() {
     return Text(
-      bpmInit.toInt().toString(),
-      style: mainRegularTextStyle,
+      bpmInit.toInt().toString(), style: bpmTextValueStyle,
+      // textScaleFactor: 3,
     );
   }
 
@@ -43,9 +57,14 @@ class _SliderBpmState extends State<SliderBpm> {
             color: silderBackgroundColor,
             borderRadius: BorderRadius.circular(50)),
         child: Column(children: [
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [bpmValue(), const SizedBox(width: 5), bpmText()]),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            bpmValue(),
+            const SizedBox(
+              width: 5,
+              height: 200,
+            ),
+            bpmText()
+          ]),
           bpmSlider()
         ]));
   }

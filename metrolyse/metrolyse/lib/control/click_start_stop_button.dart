@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metrolyse/control/slider_bpm.dart';
 
+import '../constants/constants.dart';
 import '../model/metronome_funktion.dart';
-import '../ui_components/constants.dart';
 import 'controlModels/icon_button.dart';
 
 bool isPlaying = false;
@@ -20,9 +19,10 @@ class ClickControlState extends State<ClickControl> {
   @override
   Widget build(BuildContext context) {
     return MyIconButton(
-        iconSize: 100,
-        splashRadius: 10,
-        splashColor: innerButtonColor,
+        iconSize: regIconSize * 1.5,
+        splashRadius: regIconSize,
+        color: frontColor,
+        splashColor: midColor,
         icon: isPlaying
             ? const Icon(
                 Icons.stop_circle_outlined,

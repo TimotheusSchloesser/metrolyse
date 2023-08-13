@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metrolyse/ui_components/constants.dart';
-import 'control/controlModels/round_button.dart';
-import 'control/slider_bpm.dart';
-import 'metrolyse_stats.dart';
-
+import 'package:metrolyse/constants/constants.dart';
+import 'control/button_to_stats.dart';
+import 'control/sensibility_slider.dart';
 import 'model/metronome_funktion.dart';
 import 'model/visual_check.dart';
 
@@ -21,49 +19,47 @@ class _MetrolyseHomeState extends State<MetrolyseHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Metrolyse',
-            style: mainRegularTextStyle,
+          backgroundColor: backgroundColor,
+          title: const Center(
+            child: Text(
+              'Metrolyse',
+              style: titelTextStyle,
+            ),
           ),
         ),
-        body: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              MetronomeFunction(),
-            ],
+        body: const FittedBox(
+          child: Padding(
+            padding: EdgeInsets.all(50.0),
+            child: Column(children: [
+              Padding(
+                padding: EdgeInsets.all(50.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    MetronomeFunction(),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  VisualCheck(),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    ButtonStats(),
+                    Padding(
+                      padding: EdgeInsets.only(left: 200.0),
+                      child: SensSlider(),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              VisualCheck(),
-            ],
-          ),
-          ButtonStats(),
-        ]));
-  }
-}
-
-class ButtonStats extends StatelessWidget {
-  const ButtonStats({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RoundButton(
-      color: innerButtonColor,
-      content: const Icon(
-        Icons.insert_chart_outlined_sharp,
-        size: 60,
-      ),
-      isTapped: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MetrolyseStats(),
-            ));
-      },
-    );
+        ));
   }
 }

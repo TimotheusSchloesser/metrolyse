@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:metrolyse/ui_components/constants.dart';
+import 'package:metrolyse/constants/constants.dart';
 
 import 'metrolyse_home.dart';
 
@@ -18,8 +18,8 @@ class Metrolyse extends StatelessWidget {
     return MaterialApp(
         title: 'Metrolyse',
         theme: ThemeData.dark().copyWith(
-            primaryColor: innerButtonColor,
-            scaffoldBackgroundColor: innerButtonColor,
+            primaryColor: midColor,
+            scaffoldBackgroundColor: groundColor,
             textTheme:
                 Theme.of(context).textTheme.apply(fontFamily: 'Sansation')),
         home: const MetrolyseHome());

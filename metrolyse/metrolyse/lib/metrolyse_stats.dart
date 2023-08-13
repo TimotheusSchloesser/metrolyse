@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:metrolyse/ui_components/constants.dart';
+import 'package:metrolyse/constants/constants.dart';
+import 'package:metrolyse/control/button_to_metrolyse.dart';
 
-import 'control/controlModels/round_button.dart';
+import 'model/diary_list.dart';
 
 class MetrolyseStats extends StatefulWidget {
   const MetrolyseStats({super.key});
@@ -11,49 +12,62 @@ class MetrolyseStats extends StatefulWidget {
 }
 
 class _MetrolyseStats extends State<MetrolyseStats> {
-  Offset offset = Offset.zero;
+  final List<DiaryList> _items = [DiaryList(0, DateTime.now(), 80)];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text('AnimatedSlide Sample'),
-            automaticallyImplyLeading: false),
+          backgroundColor: backgroundColor,
+          title: const Text(
+            'Metrolyse - Traindiary',
+            style: titelTextStyle,
+          ),
+        ),
         body: Column(children: [
           Row(children: [
             Expanded(
-                child: Slider(
-              min: 0.0,
-              max: 250.0,
-              value: offset.dx,
-              onChanged: (double value) {
-                setState(() {
-                  offset = Offset(value, offset.dy);
-                });
-              },
-            ))
+              child: SizedBox(
+                  height: 200.0,
+                  child: ListView.builder(
+                    itemCount: _items.length,
+                    itemBuilder: (context, int itemIndex) {
+                      return ItemWidget(_items[itemIndex]);
+                    },
+                  )),
+            ),
           ]),
-          const ButtonBack(),
+          const ButtonToMetro(),
         ]));
   }
 }
 
-class ButtonBack extends StatelessWidget {
-  const ButtonBack({
-    super.key,
-  });
+class ItemWidget extends StatelessWidget {
+  const ItemWidget(this.model, {Key? key}) : super(key: key);
+
+  final DiaryList model;
+  // final Function onItemTap;
+
+  idText(id) {
+    return "ID $id";
+  }
 
   @override
   Widget build(BuildContext context) {
-    return RoundButton(
-      color: innerButtonColor,
-      content: const Icon(
-        Icons.home_filled,
-        size: 60,
+    return ListTile(
+      // Useful standard widget for displaying something in ListView.
+      title: Text(
+        idText(model.id + 1),
+        style: mainRegularTextStyle,
       ),
-      isTapped: () {
-        Navigator.pop(context);
-      },
+      subtitle: Text(
+        model.time.toString(),
+        style: mainRegularTextStyle,
+      ),
+      trailing: Text(
+        model.accuracy.toString(),
+        style: mainRegularTextStyle,
+      ),
     );
   }
 }
