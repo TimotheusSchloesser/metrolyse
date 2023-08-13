@@ -1,16 +1,12 @@
-// import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import '../control/motion_input.dart';
 import '../control/sensibility_slider.dart';
-import '../model/metronome_funktion.dart';
 import 'check_algorythm.dart';
 
 const double sensFactor = 0.003;
 InsteadMotionButtonState getSelected = InsteadMotionButtonState();
-MetronomeFunctionState metronomeFunction = MetronomeFunctionState();
 CheckAlgo checkAlgo = CheckAlgo();
 
 class VisualCheck extends StatefulWidget {
@@ -44,7 +40,7 @@ class VisualCheckState extends State<VisualCheck> {
   }
 
   double oldDate = 0;
-  bool hasAccelerometer = false;
+  // bool hasAccelerometer = false;
   @override
   void initState() {
     super.initState();
@@ -52,6 +48,7 @@ class VisualCheckState extends State<VisualCheck> {
     accRun();
   }
 
+// Integrades the AccelerometerEvent listener
   void accRun() {
     userAccelerometerEvents.listen(
       (UserAccelerometerEvent event) {
@@ -61,8 +58,6 @@ class VisualCheckState extends State<VisualCheck> {
             if (event.x >= sensValue * sensFactor ||
                 event.y >= sensValue * sensFactor ||
                 event.z >= sensValue * sensFactor) {
-              // print(regDate);
-              // print(sensValue * sensFactor);
               checkSum();
             }
           }
@@ -81,7 +76,6 @@ class VisualCheckState extends State<VisualCheck> {
             });
       },
       cancelOnError: true,
-      // ),
     );
   }
 
@@ -144,7 +138,7 @@ class VisualCheckState extends State<VisualCheck> {
           ),
         ),
         Text(
-          hasAccelerometer ? "Yes" : "No",
+          " ",
           style: mainRegularTextStyle,
         )
       ],
