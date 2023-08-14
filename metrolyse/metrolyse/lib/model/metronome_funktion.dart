@@ -9,7 +9,6 @@ import '../control/slider_bpm.dart';
 //Minute Value
 const int min = 60000;
 
-// bool isPlaying = false;
 // The Class MetronomeFunction includes the Button to start/stop
 class MetronomeFunction extends StatefulWidget {
   const MetronomeFunction({super.key});
@@ -74,6 +73,7 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
     _clickTimer?.start();
   }
 
+// Sets the click or acceleration Date
 //
   getMetroDates() {
     int clickDate = DateTime.now().millisecondsSinceEpoch;
