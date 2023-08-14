@@ -140,7 +140,7 @@ class VisualCheckState extends State<VisualCheck> {
           //   },
           // ),
         ),
-        Text(
+        const Text(
           " ",
           style: mainRegularTextStyle,
         )
