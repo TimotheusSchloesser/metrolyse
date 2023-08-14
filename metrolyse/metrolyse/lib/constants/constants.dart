@@ -22,3 +22,4 @@ const titelTextStyle =
 const double regHight = 100;
 const double regWidth = 1100;
 const double regIconSize = 200;
+const double smallIconSize = 50;

@@ -11,7 +11,6 @@ class CheckAlgo {
 
   Map inputs = {"id": 0};
   Map metroMap = {"id": 0};
-
 /*
  * The Addition of a Map values
  * @param map - The map to get through.
@@ -66,13 +65,13 @@ class CheckAlgo {
 * @return div - The Differenz, if 0 there is no difference
 * or the difference is to high, cause of async Methods
 */
-  getDiv() {
+  getDif() {
     if (inputs.length == lengthValToSum) {
-      double div = metroDates() - getInputs();
-      if (div >= 10000 || div <= -10000) {
-        div = 0;
+      double dif = metroDates() - getInputs();
+      if (dif >= 10000 || dif <= -10000) {
+        dif = 0;
       }
-      return div;
+      return dif;
     }
   }
 }

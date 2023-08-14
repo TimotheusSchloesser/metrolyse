@@ -75,7 +75,7 @@ class VisualCheckState extends State<VisualCheck> {
 
   checkSum() {
     if (isPlaying && checkAlgo.metroMap.length == lengthValToSum) {
-      double? checkAlg = checkAlgo.getDiv();
+      double? checkAlg = checkAlgo.getDif();
       if (checkAlg != null) {
         check = checkAlg;
         check += valueToBeMid;
@@ -129,16 +129,11 @@ class VisualCheckState extends State<VisualCheck> {
         ),
         Padding(
           padding: const EdgeInsets.all(350.0),
-          child: Text(
-            (check - 500).toString(),
-            style: mainRegularTextStyle,
+          child: Image.asset(
+            'assets/images/icon.png',
+            height: 400,
+            width: 400,
           ),
-
-          //     InsteadMotionButton(
-          //   isTapped: () {
-          //     checkSum();
-          //   },
-          // ),
         ),
         const Text(
           " ",

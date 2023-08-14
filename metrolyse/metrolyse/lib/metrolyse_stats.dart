@@ -58,15 +58,15 @@ class ItemWidget extends StatelessWidget {
       // Useful standard widget for displaying something in ListView.
       title: Text(
         idText(model.id + 1),
-        style: mainRegularTextStyle,
+        style: titelTextStyle,
       ),
       subtitle: Text(
         model.time.toString(),
-        style: mainRegularTextStyle,
+        style: titelTextStyle,
       ),
       trailing: Text(
         model.accuracy.toString(),
-        style: mainRegularTextStyle,
+        style: titelTextStyle,
       ),
     );
   }

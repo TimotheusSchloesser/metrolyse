@@ -14,7 +14,7 @@ class ButtonToMetro extends StatelessWidget {
       color: backgroundColor,
       content: const Icon(
         Icons.arrow_back,
-        size: regIconSize,
+        size: smallIconSize,
       ),
       isTapped: () {
         Navigator.push(context,
