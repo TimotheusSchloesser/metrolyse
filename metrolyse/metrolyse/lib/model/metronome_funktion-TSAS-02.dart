@@ -9,7 +9,6 @@ import '../control/slider_bpm.dart';
 //Minute Value
 const int min = 60000;
 
-// bool isPlaying = false;
 // The Class MetronomeFunction includes the Button to start/stop
 class MetronomeFunction extends StatefulWidget {
   const MetronomeFunction({super.key});
@@ -21,7 +20,6 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   //Timer class
   ReliableIntervalTimer? _clickTimer;
 
-//Audio Functions from the Class AudioPlay
   AudioPlay audioPlay = AudioPlay();
 
 //ContextBuilder
@@ -64,6 +62,7 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
         interval: Duration(milliseconds: min ~/ bpmInit),
         callback: (int elapsedMilliseconds) async {
           await audioPlay.playClick();
+          // SystemSound.play(SystemSoundType.click);
           getMetroDates();
           checkAlgo.metroDates();
         });
@@ -71,22 +70,24 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
 
   // Starts the Metronome-Timer
   startClick() async {
+    // _clickTimer?.stop();
     _clickTimer?.start();
+    // stopClick();
   }
 
-//
+// Sets the click or acceleration Date
   getMetroDates() {
-    int clickDate = DateTime.now().millisecondsSinceEpoch;
+    double clickDate = DateTime.now().millisecondsSinceEpoch.toDouble();
     return clickDate;
   }
 
-// Updates the Metronome
   updateClick() {
     _clickTimer?.updateInterval(Duration(milliseconds: min ~/ bpmInit));
   }
 
-  // Stops the Metronome-Timer
+  // //Stops the Metronome-Timer
   void stopClick() async {
+    // audioPlay.muteClick();
     await _clickTimer?.stop();
   }
 

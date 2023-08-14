@@ -1,16 +1,12 @@
-// import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import '../control/click_start_stop_button.dart';
 import '../control/motion_input.dart';
 import '../control/sensibility_slider.dart';
-import '../model/metronome_funktion.dart';
 import 'check_algorythm.dart';
 
 const double sensFactor = 0.003;
 InsteadMotionButtonState getSelected = InsteadMotionButtonState();
-MetronomeFunctionState metronomeFunction = MetronomeFunctionState();
 CheckAlgo checkAlgo = CheckAlgo();
 
 class VisualCheck extends StatefulWidget {
@@ -31,8 +27,10 @@ class VisualCheckState extends State<VisualCheck> {
 
   void start(double check) {
     setState(() {
-      _posFromLeft = check;
-      // print(_posFromLeft);
+      if (check != 0) {
+        _posFromLeft = check;
+        // print(_posFromLeft);
+      }
     });
   }
 
@@ -42,13 +40,15 @@ class VisualCheckState extends State<VisualCheck> {
   }
 
   double oldDate = 0;
-  bool hasAccelerometer = false;
+  // bool hasAccelerometer = false;
   @override
   void initState() {
     super.initState();
+
     accRun();
   }
 
+// Integrades the AccelerometerEvent listener
   void accRun() {
     userAccelerometerEvents.listen(
       (UserAccelerometerEvent event) {
@@ -76,20 +76,15 @@ class VisualCheckState extends State<VisualCheck> {
             });
       },
       cancelOnError: true,
-      // ),
     );
   }
 
   checkSum() {
-    if (isPlaying && checkAlgo.metroMap.length == lengthValToSum) {
-      double? checkAlg = checkAlgo.getDiv();
-      if (checkAlg != null) {
-        check = checkAlg;
-        check += valueToBeMid;
-        start(check);
-      }
-      checkAlgo.getInputs();
+    if (checkAlgo.metroMap.length == lengthValToSum) {
+      check = checkAlgo.getDiv();
+      start(check + valueToBeMid);
     }
+    checkAlgo.getInputs();
   }
 
   @override
@@ -136,19 +131,14 @@ class VisualCheckState extends State<VisualCheck> {
         ),
         Padding(
           padding: const EdgeInsets.all(350.0),
-          child: Text(
-            (check - 500).toString(),
-            style: mainRegularTextStyle,
+          child: InsteadMotionButton(
+            isTapped: () {
+              checkSum();
+            },
           ),
-
-          //     InsteadMotionButton(
-          //   isTapped: () {
-          //     checkSum();
-          //   },
-          // ),
         ),
         Text(
-          hasAccelerometer ? "Yes" : "No",
+          " ",
           style: mainRegularTextStyle,
         )
       ],
