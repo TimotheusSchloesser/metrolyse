@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import '../control/click_start_stop_button.dart';
 import '../control/motion_input.dart';
 import '../control/sensibility_slider.dart';
 import 'check_algorythm.dart';
@@ -20,17 +21,11 @@ class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = regWidth * 0.5;
   double valueToBeMid = 500;
   double check = 0;
-  // List<double>? hitValues;
-  //  List<double>? userAccelerometerValues;
-
-  // final streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   void start(double check) {
     setState(() {
-      if (check != 0) {
-        _posFromLeft = check;
-        // print(_posFromLeft);
-      }
+      _posFromLeft = check;
+      // print(_posFromLeft);
     });
   }
 
@@ -44,7 +39,6 @@ class VisualCheckState extends State<VisualCheck> {
   @override
   void initState() {
     super.initState();
-
     accRun();
   }
 
@@ -80,11 +74,15 @@ class VisualCheckState extends State<VisualCheck> {
   }
 
   checkSum() {
-    if (checkAlgo.metroMap.length == lengthValToSum) {
-      check = checkAlgo.getDiv();
-      start(check + valueToBeMid);
+    if (isPlaying && checkAlgo.metroMap.length == lengthValToSum) {
+      double? checkAlg = checkAlgo.getDif();
+      if (checkAlg != null) {
+        check = checkAlg;
+        check += valueToBeMid;
+        start(check);
+      }
+      checkAlgo.getInputs();
     }
-    checkAlgo.getInputs();
   }
 
   @override
@@ -131,13 +129,13 @@ class VisualCheckState extends State<VisualCheck> {
         ),
         Padding(
           padding: const EdgeInsets.all(350.0),
-          child: InsteadMotionButton(
-            isTapped: () {
-              checkSum();
-            },
+          child: Image.asset(
+            'assets/images/icon.png',
+            height: 400,
+            width: 400,
           ),
         ),
-        Text(
+        const Text(
           " ",
           style: mainRegularTextStyle,
         )

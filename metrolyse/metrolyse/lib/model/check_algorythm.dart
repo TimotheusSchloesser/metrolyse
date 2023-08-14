@@ -1,17 +1,16 @@
 import '../control/click_start_stop_button.dart';
-import 'metronome_funktion.dart';
+import '../model/metronome_funktion.dart';
 
-MetronomeFunctionState metronomeFunction = MetronomeFunctionState();
 //Constants
 const double factorToSeeVal = 0.1; // Factor to manipulate the Date values
 const int lengthValToSum = 2; // How many rounds to wait till sum the map values
 
 // Class to get the Methods to check the Differenz of to Maps of Dates.since
 class CheckAlgo {
+  MetronomeFunctionState metronomeFunction = MetronomeFunctionState();
+
   Map inputs = {"id": 0};
   Map metroMap = {"id": 0};
-  // Map allDiv = {};
-
 /*
  * The Addition of a Map values
  * @param map - The map to get through.
@@ -61,19 +60,18 @@ class CheckAlgo {
 // The Metronome Map
   metroDates() =>
       getMapsSums(metroMap, metronomeFunction.getMetroDates().toDouble());
-
 /*
 *Subtracts the calculated sums of the two maps
 * @return div - The Differenz, if 0 there is no difference
 * or the difference is to high, cause of async Methods
 */
-  getDiv() {
+  getDif() {
     if (inputs.length == lengthValToSum) {
-      double div = metroDates() - getInputs();
-      if (div >= 10000 || div <= -10000) {
-        div = 0;
+      double dif = metroDates() - getInputs();
+      if (dif >= 10000 || dif <= -10000) {
+        dif = 0;
       }
-      return div;
+      return dif;
     }
   }
 }
