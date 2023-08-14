@@ -21,10 +21,6 @@ class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = regWidth * 0.5;
   double valueToBeMid = 500;
   double check = 0;
-  // List<double>? hitValues;
-  //  List<double>? userAccelerometerValues;
-
-  // final streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   void start(double check) {
     setState(() {

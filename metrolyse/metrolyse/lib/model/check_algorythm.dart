@@ -9,7 +9,6 @@ class CheckAlgo {
 
   Map inputs = {"id": 0};
   Map metroMap = {"id": 0};
-  Map allDiv = {};
 
   sumValues(Map map, length) {
     Iterable values = map.values;
