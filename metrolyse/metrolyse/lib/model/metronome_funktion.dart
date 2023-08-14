@@ -74,7 +74,6 @@ class MetronomeFunctionState extends State<MetronomeFunction> {
   }
 
 // Sets the click or acceleration Date
-//
   getMetroDates() {
     int clickDate = DateTime.now().millisecondsSinceEpoch;
     return clickDate;
