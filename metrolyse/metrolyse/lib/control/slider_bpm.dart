@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/constants.dart';
-import '../model/metronome_funktion.dart';
+import '../model/metronome_function.dart';
 
 double bpmInit = 150.0;
 

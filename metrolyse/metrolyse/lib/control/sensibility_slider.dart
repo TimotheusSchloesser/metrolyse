@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
-import '../model/metronome_funktion.dart';
+import '../model/metronome_function.dart';
 import 'controlModels/slider_theme.dart';
 
 double sensValue = 5;

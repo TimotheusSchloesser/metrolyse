@@ -1,5 +1,5 @@
 import '../control/click_start_stop_button.dart';
-import '../model/metronome_funktion.dart';
+import 'metronome_function.dart';
 
 //Constants
 const double factorToSeeVal = 0.1; // Factor to manipulate the Date values

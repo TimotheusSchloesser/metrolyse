@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
 import 'control/button_to_stats.dart';
 import 'control/sensibility_slider.dart';
-import 'model/metronome_funktion.dart';
+import 'model/metronome_function.dart';
 import 'model/visual_check.dart';
 
 // MetronomeFunction metronomeFunction = MetronomeFunction();
