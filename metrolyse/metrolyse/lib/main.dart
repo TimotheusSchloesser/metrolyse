@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:metrolyse/constants/constants.dart';
-
 import 'metrolyse_home.dart';
 
 void main() {

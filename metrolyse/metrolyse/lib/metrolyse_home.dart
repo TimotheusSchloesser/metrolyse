@@ -5,8 +5,6 @@ import 'control/sensibility_slider.dart';
 import 'model/metronome_function.dart';
 import 'model/visual_check.dart';
 
-// MetronomeFunction metronomeFunction = MetronomeFunction();
-
 class MetrolyseHome extends StatefulWidget {
   const MetrolyseHome({super.key});
 

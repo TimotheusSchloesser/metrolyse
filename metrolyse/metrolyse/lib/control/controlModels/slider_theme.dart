@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
 
+// Slider Model
 class SliderModel extends StatefulWidget {
   const SliderModel(
       {super.key,
@@ -27,34 +28,31 @@ class SliderModel extends StatefulWidget {
 class _SliderModelState extends State<SliderModel> {
 // The Slider
   themeSlider() => SliderTheme(
-      data: SliderTheme.of(context).copyWith(
-        activeTrackColor: midColor,
-        inactiveTrackColor: midColor,
-        trackShape: const RoundedRectSliderTrackShape(),
-        trackHeight: widget.trackHeight,
-        thumbColor: frontColor,
-        thumbShape: RoundSliderThumbShape(
-            enabledThumbRadius: widget.enabledThumbRadius),
-      ),
-      // child: SizedBox(
-      //     width: regWidth,
-      child: Slider(
-        value: widget.initSliderValue,
-        min: widget.minValue,
-        max: widget.maxValue,
-        onChanged: widget.valueToChange,
-      )
-      // )
+        data: SliderTheme.of(context).copyWith(
+          activeTrackColor: midColor,
+          inactiveTrackColor: midColor,
+          trackShape: const RoundedRectSliderTrackShape(),
+          trackHeight: widget.trackHeight,
+          thumbColor: frontColor,
+          thumbShape: RoundSliderThumbShape(
+              enabledThumbRadius: widget.enabledThumbRadius),
+        ),
+        child: Slider(
+          value: widget.initSliderValue,
+          min: widget.minValue,
+          max: widget.maxValue,
+          onChanged: widget.valueToChange,
+        ),
       );
   Text valueText() {
     return widget.valueAsText;
   }
 
-  //Just the text for the BPM-Slider
+  //Text for the BPM-Slider
   Text sliderValue() {
     return Text(
-      widget.initSliderValue.toInt().toString(), style: mainRegularTextStyle,
-      // textScaleFactor: 3,
+      widget.initSliderValue.toInt().toString(),
+      style: mainRegularTextStyle,
     );
   }
 
@@ -65,14 +63,9 @@ class _SliderModelState extends State<SliderModel> {
             color: silderBackgroundColor,
             borderRadius: BorderRadius.circular(20)),
         child: Column(children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            sliderValue(),
-            // const SizedBox(
-            //   width: regWidth * 0.01,
-            //   height: regHight,
-            // ),
-            valueText()
-          ]),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [sliderValue(), valueText()]),
           themeSlider()
         ]));
   }

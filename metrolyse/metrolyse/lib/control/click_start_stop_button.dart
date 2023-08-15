@@ -6,6 +6,7 @@ import 'controlModels/icon_button.dart';
 
 bool isPlaying = false;
 
+//The start and stop button
 class ClickControl extends StatefulWidget {
   const ClickControl({super.key, required this.pressStart});
   final VoidCallback pressStart;

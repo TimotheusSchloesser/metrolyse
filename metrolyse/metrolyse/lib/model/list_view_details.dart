@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
-
 import 'diary_list.dart';
 
-/// Widget for displaying detailed info of [ItemModel]
 class ListViewDetails extends StatefulWidget {
   final DiaryList model;
 

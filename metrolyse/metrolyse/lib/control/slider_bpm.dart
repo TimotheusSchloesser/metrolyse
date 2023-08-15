@@ -4,6 +4,7 @@ import '../model/metronome_function.dart';
 
 double bpmInit = 150.0;
 
+// The BPM-Slider
 class SliderBpm extends StatefulWidget {
   const SliderBpm({super.key, required this.bpmInitChange});
   final void Function(double) bpmInitChange;

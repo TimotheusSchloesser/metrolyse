@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:metrolyse/constants/constants.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import '../control/click_start_stop_button.dart';
-import '../control/motion_input.dart';
 import '../control/sensibility_slider.dart';
 import 'check_algorythm.dart';
 
 const double sensFactor = 0.003;
-InsteadMotionButtonState getSelected = InsteadMotionButtonState();
+
 CheckAlgo checkAlgo = CheckAlgo();
 
 class VisualCheck extends StatefulWidget {
@@ -21,7 +20,7 @@ class VisualCheckState extends State<VisualCheck> {
   double _posFromLeft = regWidth * 0.5;
   double valueToBeMid = 500;
   double check = 0;
-
+  double oldDate = 0;
   void start(double check) {
     setState(() {
       _posFromLeft = check;
@@ -34,8 +33,6 @@ class VisualCheckState extends State<VisualCheck> {
     super.dispose();
   }
 
-  double oldDate = 0;
-  // bool hasAccelerometer = false;
   @override
   void initState() {
     super.initState();

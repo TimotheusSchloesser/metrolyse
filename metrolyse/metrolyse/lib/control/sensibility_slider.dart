@@ -5,8 +5,8 @@ import '../model/metronome_function.dart';
 import 'controlModels/slider_theme.dart';
 
 double sensValue = 5;
-// double sensibilityVal;
 
+// The Sensibility-Slider
 class SensSlider extends StatefulWidget {
   const SensSlider({
     super.key,
